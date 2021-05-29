@@ -1,6 +1,28 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link, history, useHistory } from 'react-router-dom'
+
 export default function RegisterPage() {
+	const history = useHistory()
+	const [newUser, setNewUser] = useState({
+		username: "",
+		email: "",
+		location: "",
+		password: "",
+		profilPicture: ""
+	})
+
+	const handleChange = (e) => {
+		setNewUser({
+		  ...newUser,
+		  [e.target.name]: e.target.value
+		})
+	}
+
+	const handleSubmit = () => {
+		history('/login')
+	}
+	
+
 	return (
 		<section className="flex flex-col md:flex-row-reverse h-screen items-center">
 			<div className="bg-indigo-600 hidden lg:block w-full md:w-1/2 xl:w-2/3 h-screen">
@@ -10,7 +32,6 @@ export default function RegisterPage() {
 					className="w-full h-full object-cover"
 				/>
 			</div>
-
 			<div
 				className="bg-white w-full md:max-w-md lg:max-w-full md:mx-auto md:mx-0 md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12
             flex items-center justify-center"
@@ -20,13 +41,28 @@ export default function RegisterPage() {
 						Register to your account
 					</h1>
 
-					<form className="mt-6" action="#" method="POST">
+					<form className="mt-6" onSubmit={() => handleSubmit()} method="POST">
+						<div>
+							<label className="block text-gray-700">Username</label>
+							<input
+								type="username"
+								name="username"
+								value={newUser.username}
+								onChange={handleChange}
+								placeholder="Enter your username"
+								className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
+								autofocus
+								autocomplete
+								required
+							/>
+						</div>
 						<div>
 							<label className="block text-gray-700">Email Address</label>
 							<input
 								type="email"
-								name=""
-								id=""
+								name="email"
+								value={newUser.email}
+								onChange={handleChange}
 								placeholder="Enter Email Address"
 								className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
 								autofocus
@@ -39,8 +75,9 @@ export default function RegisterPage() {
 							<label className="block text-gray-700">Password</label>
 							<input
 								type="password"
-								name=""
-								id=""
+								name="password"
+								value={newUser.password}
+								onChange={handleChange}
 								placeholder="Enter Password"
 								minlength="6"
 								className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500

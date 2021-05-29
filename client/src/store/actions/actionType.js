@@ -1,0 +1,1 @@
+export const SHOWUSER = 'user/setUser'

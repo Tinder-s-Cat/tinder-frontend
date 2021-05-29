@@ -1,10 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Logo from '../assets/tindercat.png'
 export default function LandingPage() {
 	return (
 		<div className="background-cat w-screen h-screen">
 			<div className="h-1/6 flex">
-				<h1 className="text-4xl m-5 font-semibold text-white">Tinder Cat</h1>
+				<img src={Logo} alt="LogoCat" />
 			</div>
 			<div className="h-5/6 flex flex-row justify-center items-center">
 				<div className="-mt-10">

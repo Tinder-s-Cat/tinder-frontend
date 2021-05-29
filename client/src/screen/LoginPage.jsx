@@ -1,12 +1,34 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
+// import { useDispatch } from 'react-redux'
+
 export default function LoginPage() {
 	let history = useHistory()
 
-	function handleLogin(event) {
-		event.preventDefault()
+	const [dataLogin, setLogin] = useState({
+		email: "",
+		password: ""
+	})
+
+	const handleChange = (e) => {
+		setLogin({
+		  ...dataLogin,
+		  [e.target.name]: e.target.value
+		})
+	}
+
+	const handleLogin = () => {
+		// axios({
+
+		// })
 		history.push('/dashboard/user/1')
 	}
+
+	// function handleLogin(event) {
+	// 	event.preventDefault()
+	// 	history.push('/dashboard/user/1')
+	// }
+
 	return (
 		<>
 			<section className="flex flex-col md:flex-row h-screen items-center">
@@ -28,7 +50,7 @@ export default function LoginPage() {
 						</h1>
 
 						<form
-							onSubmit={(e) => handleLogin(e)}
+							onSubmit={() => handleLogin()}
 							className="mt-6"
 							action="#"
 							method="POST"
@@ -37,8 +59,9 @@ export default function LoginPage() {
 								<label className="block text-gray-700">Email Address</label>
 								<input
 									type="email"
-									name=""
-									id=""
+									name="email"
+									value={dataLogin.email}
+									onChange={handleChange}
 									placeholder="Enter Email Address"
 									className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
 									autofocus
@@ -51,8 +74,9 @@ export default function LoginPage() {
 								<label className="block text-gray-700">Password</label>
 								<input
 									type="password"
-									name=""
-									id=""
+									name="password"
+									value={dataLogin.password}
+									onChange={handleChange}
 									placeholder="Enter Password"
 									minlength="6"
 									className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500
