@@ -1,6 +1,6 @@
 import React from 'react'
 
-export function SwapCards() {
+export default function SwapCard() {
 	return (
 		<>
 			<div className="p-56">

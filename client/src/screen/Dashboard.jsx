@@ -1,8 +1,22 @@
 import React from 'react'
 import UserProfile from '../components/UserProfileCard'
 import MatchesCard from '../components/MatchesCard'
-import { Link } from 'react-router-dom'
+import SwapCard from '../components/SwapCard'
+import ChatRoom from '../components/ChatRoom'
+import {
+	Link,
+	useHistory,
+	Switch,
+	Route,
+	useRouteMatch,
+} from 'react-router-dom'
+
 export default function Dashboard() {
+	let { path, url } = useRouteMatch()
+	let history = useHistory()
+	function handleLogout() {
+		history.push('/')
+	}
 	return (
 		<div className="h-screen w-screen bg-gray-200 flex flex-row">
 			{/* Sidebar */}
@@ -27,7 +41,12 @@ export default function Dashboard() {
 									</h1>
 								</div>
 								<div className="w-3/12">
-									<button className=" px-2 py-1 bg-yellow-200 hover:bg-yellow-500 rounded-xl text-yellow-900">
+									<button
+										onClick={() => {
+											handleLogout()
+										}}
+										className=" px-2 py-1 bg-yellow-200 hover:bg-yellow-500 rounded-xl text-yellow-900"
+									>
 										Logout
 									</button>
 								</div>
@@ -50,7 +69,17 @@ export default function Dashboard() {
 			</section>
 			{/* Main Dashboard isinya nested router */}
 			<section className="w-9/12 h-full bg-yellow-50 flex flex-row items-center justify-center">
-				<UserProfile />
+				<Switch>
+					<Route exact path={path}>
+						<SwapCard />
+					</Route>
+					<Route path={`${path}/user/:userId`}>
+						<UserProfile />
+					</Route>
+					<Route path={`${path}/chat/:chatroomId`}>
+						<ChatRoom />
+					</Route>
+				</Switch>
 			</section>
 		</div>
 	)
