@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import CatCard from './CatCard'
 import EditForm from './EditForm'
+import AddForm from './AddForm'
 
 export default function UserProfileCard() {
 	const [showModal, setShowModal] = useState(false)
@@ -26,7 +27,7 @@ export default function UserProfileCard() {
 								setShowModal(true)
 							}}
 						>
-							Edit Profile
+							Add Cat
 						</button>
 					</div>
 				</div>
@@ -42,7 +43,7 @@ export default function UserProfileCard() {
 			</div>
 			{showModal ? (
 				<>
-					<EditForm setShowModal={() => setShowModal(!showModal)} />
+					<AddForm setShowModal={() => setShowModal(!showModal)} />
 				</>
 			) : null}
 		</>
