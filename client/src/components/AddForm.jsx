@@ -1,6 +1,59 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
+import {useSelector, useDispatch} from 'react-redux'
+import {useParams} from 'react-router-dom'
+import { addCat } from '../store/actions/action'
 
 export default function AddForm({ setShowModal }) {
+	let [cat, setCat] = useState({
+		name: "",
+		age: "",
+		race: "",
+		gender: "",
+		profilePicture: "",
+		status: true,
+		description: ""
+	})
+	let { userId } = useParams()
+	const dispatch = useDispatch()
+	function handleAdd(){
+
+		let payload = {
+			name: cat.name,
+			age: cat.age,
+			race: cat.race,
+			status: cat.status,
+			gender: cat.gender,
+			profilePicture: cat.profilePicture,
+			description: cat.description,
+		}
+		console.log('MASUK 2', payload)
+		dispatch(addCat({payload,userId}))
+		// setCat('')
+		setShowModal()
+	}
+	function addName(event){
+		setCat({...cat,name:event.target.value})
+	}
+	function addAge(event){
+		setCat({...cat,age:event.target.value})
+	}
+	function addRace(event){
+		console.log(cat.race)
+		setCat({...cat,race:event.target.value})
+	}
+	function addStatus(event){
+		setCat({...cat,status:event.target.value})
+	}
+	function addDescription(event){
+		setCat({...cat,description:event.target.value})
+	}
+	function addGender(event){
+		setCat({...cat,gender:event.target.value})
+	}
+	function addProfilePicture(event){
+		setCat({...cat,profilePicture:event.target.value})
+	}
+
 	return (
 		<>
 			<div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -21,12 +74,17 @@ export default function AddForm({ setShowModal }) {
 						</div>
 						{/*body*/}
 						<div className="relative p-6 flex-auto">
-							<form className=" w-96">
+							<form className=" w-96"> 
 								<div className="flex items-center justify-between">
 									<label htmlFor="">Name:</label>
 									<input
 										type="text"
 										className=" border-black border-2 p-2 mx-2"
+										value={cat.name}
+										onChange={
+											addName
+										}
+
 									/>
 								</div>
 								<div className="flex items-center justify-between my-5">
@@ -34,6 +92,10 @@ export default function AddForm({ setShowModal }) {
 									<input
 										type="text"
 										className=" border-black border-2 p-2 mx-2"
+										value={cat.age}
+										onChange={
+											addAge
+										}
 									/>
 								</div>
 								<div className="flex items-center justify-between my-5">
@@ -41,6 +103,10 @@ export default function AddForm({ setShowModal }) {
 									<input
 										type="text"
 										className=" border-black border-2 p-2 mx-2"
+										value={cat.race}
+										onChange={
+											addRace
+										}
 									/>
 								</div>
 								<div className="flex items-center justify-between my-5">
@@ -48,6 +114,32 @@ export default function AddForm({ setShowModal }) {
 									<input
 										type="text"
 										className=" border-black border-2 p-2 mx-2 rounded-md"
+										value={cat.status}
+										onChange={
+											addStatus
+										}
+									/>
+								</div>
+								<div className="flex items-center justify-between my-5">
+									<label htmlFor="">Gender:</label>
+									<input
+										type="text"
+										className=" border-black border-2 p-2 mx-2 rounded-md"
+										value={cat.gender}
+										onChange={
+											addGender
+										}
+									/>
+								</div>
+								<div className="flex items-center justify-between my-5">
+									<label htmlFor="">ProfilePicture:</label>
+									<input
+										type="text"
+										className=" border-black border-2 p-2 mx-2 rounded-md"
+										value={cat.profilePicture}
+										onChange={
+											addProfilePicture
+										}
 									/>
 								</div>
 								<div className="flex items-center justify-between my-5">
@@ -55,6 +147,10 @@ export default function AddForm({ setShowModal }) {
 									<textarea
 										type="text"
 										className=" border-black border-2 p-2 mx-2"
+										value={cat.description}
+										onChange={
+											addDescription
+										}
 									/>
 								</div>
 							</form>
@@ -71,7 +167,10 @@ export default function AddForm({ setShowModal }) {
 							<button
 								className="bg-blue-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
 								type="button"
-								onClick={() => setShowModal()}
+								onClick={(event) =>{
+									event.preventDefault()
+									handleAdd()
+								}}
 							>
 								Save Changes
 							</button>

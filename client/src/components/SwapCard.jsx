@@ -1,16 +1,25 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Cards } from '../components/Cards'
-import { skipCard } from '../store/actions/action'
+import { skipCard, getCats, postLike } from '../store/actions/action'
 
 export default function SwapCard() {
 	const cats = useSelector(state => state.randomCards)
 	// console.log(cats);
 	const dispatch = useDispatch()
 
-	// useEffect(() => {
-		
-	// }, []);
+	useEffect(() => {
+		dispatch(getCats())
+	}, []);
+
+	const handleRefresh = () => {
+		dispatch(getCats())
+	}
+
+	const handleLike = () => {
+		dispatch(postLike({ UserId: localStorage.id, CatId: cats[0].id }))
+		dispatch(skipCard())
+	}
 
 	const handleSkip = () => {
 		dispatch(skipCard())
@@ -36,10 +45,10 @@ export default function SwapCard() {
 					<button onClick={() => handleSkip()} className="bg-blue-500 text-black font-bold py-2 px-4 border-b-4 border-blue-dark hover:border-blue rounded">
 						Skip
 					</button>
-					<button className="bg-blue-500  text-black font-bold py-2 px-4 border-b-4 border-blue-dark hover:border-blue rounded">
+					<button onClick={handleRefresh} className="bg-blue-500  text-black font-bold py-2 px-4 border-b-4 border-blue-dark hover:border-blue rounded">
 						Refresh
 					</button>
-					<button className="bg-blue-500  text-black font-bold py-2 px-4 border-b-4 border-blue-dark hover:border-blue rounded">
+					<button onClick={handleLike} className="bg-blue-500  text-black font-bold py-2 px-4 border-b-4 border-blue-dark hover:border-blue rounded">
 						Like
 					</button>
 				</div>

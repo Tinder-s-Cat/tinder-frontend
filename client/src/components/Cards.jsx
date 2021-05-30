@@ -23,8 +23,8 @@ export function Cards(cat) {
                             >
                                 <img
                                     alt="Placeholder"
-                                    className="block rounded-full w-min"
-                                    src="https://picsum.photos/32/32/?random"
+                                    className="block rounded-full h-12 w-12"
+                                    src={cat.cat.User.profilePicture}
                                 />
                                 <span className="ml-2 text-center">{cat.cat.name}   {cat.cat.age} thn</span>
                             </a>
