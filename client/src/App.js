@@ -1,11 +1,10 @@
-import logo from './logo.svg'
 import './App.css'
 import Dasboard from './screen/Dashboard'
 import LandingPage from './screen/LandingPage'
 import LoginPage from './screen/LoginPage'
 import RegisterPage from './screen/RegisterPage'
 
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 function App() {
 	return (

@@ -19,7 +19,7 @@ export default function MatchesCard({ props }) {
 						<img
 							className="rounded-full z-50 object-fill w-full h-full cursor-pointer"
 							src="https://i.imgur.com/657wEgh.jpg"
-							alt="profile picture"
+							alt="profile"
 						/>
 					</div>
 				</div>

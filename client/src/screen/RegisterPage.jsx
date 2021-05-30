@@ -6,89 +6,96 @@ import Swal from 'sweetalert2'
 export default function RegisterPage() {
 	const history = useHistory()
 	const [newUser, setNewUser] = useState({
-		username: "",
-		email: "",
-		location: "",
-		password: "",
-		profilePicture: ""
+		username: '',
+		email: '',
+		location: '',
+		password: '',
+		profilePicture: '',
 	})
-
-
 
 	const handleChange = (e) => {
 		setNewUser({
-		  ...newUser,
-		  [e.target.name]: e.target.value
+			...newUser,
+			[e.target.name]: e.target.value,
 		})
 	}
 
 	// ini tinggal nerima router nya aja dari server
-	const handleSubmit = () => {
+	const handleSubmit = (event) => {
+		event.preventDefault()
 		axios({
 			method: 'POST',
-			url: "http://localhost:3000/register",
-			username: newUser.username,
-			email: newUser.email,
-			password: newUser.password,
-			profilePicture: newUser.profilePicture,
-			location: newUser.location
+			url: 'http://localhost:3000/register',
+			data: {
+				username: newUser.username,
+				email: newUser.email,
+				password: newUser.password,
+				profilePicture: newUser.profilePicture,
+				location: newUser.location,
+			},
 		})
-		.then(( response ) => {
-			// console.log(newUser);
-			console.log(response, 'ini adalah response');
-			if(newUser.username === "" || newUser.email === "" || newUser.password === "" || newUser.profilPicture === "" || newUser.location === "") {
-				console.log("tidak dapat login");
-			} else {
-				const Toast = Swal.mixin({
-					toast: true,
-					position: 'top-end',
-					showConfirmButton: false,
-					timer: 3000,
-					timerProgressBar: true,
-					didOpen: (toast) => {
-					  toast.addEventListener('mouseenter', Swal.stopTimer)
-					  toast.addEventListener('mouseleave', Swal.resumeTimer)
-					}
-				  })
-				  
-				  Toast.fire({
-					icon: 'success',
-					title: 'Register success!'
-				  })
-				history.push('/login')
-			}
-		})
-		.catch((error) => {
-			console.log(error);
-			// let str = error.response.data.errors.join('\n')
-			Swal.fire({
-				icon: 'error',
-				title: 'Oops...',
-				text: 'something wrong',
-				// html: '<pre>'+ str +'</pre>'
+			.then((response) => {
+				// console.log(newUser);
+				console.log(response, 'ini adalah response')
+				if (
+					newUser.username === '' ||
+					newUser.email === '' ||
+					newUser.password === '' ||
+					newUser.profilPicture === '' ||
+					newUser.location === ''
+				) {
+					console.log('tidak dapat login')
+				} else {
+					const Toast = Swal.mixin({
+						toast: true,
+						position: 'top-end',
+						showConfirmButton: false,
+						timer: 3000,
+						timerProgressBar: true,
+						didOpen: (toast) => {
+							toast.addEventListener('mouseenter', Swal.stopTimer)
+							toast.addEventListener('mouseleave', Swal.resumeTimer)
+						},
+					})
+
+					Toast.fire({
+						icon: 'success',
+						title: 'Register success!',
+					})
+					history.push('/login')
+				}
 			})
-		})
+			.catch((error) => {
+				console.log(error)
+				// let str = error.response.data.errors.join('\n')
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'something wrong',
+					// html: '<pre>'+ str +'</pre>'
+				})
+			})
 	}
 
 	const getLocation = () => {
-		navigator.geolocation.getCurrentPosition(function(coor) {
+		navigator.geolocation.getCurrentPosition(function (coor) {
 			axios({
 				method: 'GET',
-				url: `https://api.opencagedata.com/geocode/v1/json?q=${coor.coords.latitude}+${coor.coords.longitude}&key=6bfeaaf22afb419d95cfda8e999af2a6`
+				url: `https://api.opencagedata.com/geocode/v1/json?q=${coor.coords.latitude}+${coor.coords.longitude}&key=6bfeaaf22afb419d95cfda8e999af2a6`,
 			})
-			.then(({ data }) => {
-				// console.log(data.results[0].components.city, 'INI DATA NYA');
-				const newLocation = data.results[0].components.city;
-				setNewUser({
-					...newUser, location: newLocation
+				.then(({ data }) => {
+					// console.log(data.results[0].components.city, 'INI DATA NYA');
+					const newLocation = data.results[0].components.city
+					setNewUser({
+						...newUser,
+						location: newLocation,
+					})
 				})
-			})
-			.catch((err) => {
-				console.log(err);
-			})
+				.catch((err) => {
+					console.log(err)
+				})
 		})
 	}
-	
 
 	return (
 		<section className="flex flex-col md:flex-row-reverse h-screen items-center">
@@ -108,7 +115,7 @@ export default function RegisterPage() {
 						Register to your account
 					</h1>
 
-					<form className="mt-6">
+					<form onSubmit={(event) => handleSubmit(event)} className="mt-6">
 						<div>
 							<label className="block text-gray-700">Username</label>
 							<input
@@ -177,12 +184,17 @@ export default function RegisterPage() {
 								className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500
                     focus:bg-white focus:outline-none"
 							/>
-							<button type="button" onClick={getLocation} class='flex-shrink-0 w-auto bg-purple-500 hover:bg-purple-700 rounded-lg shadow-xl bottom-1/2 font-medium text-white px-4 py-2'>SET</button>
+							<button
+								type="button"
+								onClick={getLocation}
+								class="flex-shrink-0 w-auto bg-purple-500 hover:bg-purple-700 rounded-lg shadow-xl bottom-1/2 font-medium text-white px-4 py-2"
+							>
+								SET
+							</button>
 						</div>
 
 						<button
-							type="button"
-							onClick={() => handleSubmit()}
+							type="submit"
 							className="w-full block bg-indigo-500 hover:bg-indigo-400 focus:bg-indigo-400 text-white font-semibold rounded-lg
                     px-4 py-3 mt-6"
 						>
