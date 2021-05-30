@@ -3,18 +3,13 @@ import UserProfile from '../components/UserProfileCard'
 import MatchesCard from '../components/MatchesCard'
 import SwapCard from '../components/SwapCard'
 import ChatRoom from '../components/ChatRoom'
-import {
-	Link,
-	useHistory,
-	Switch,
-	Route,
-	useRouteMatch,
-} from 'react-router-dom'
+import { useHistory, Switch, Route, useRouteMatch } from 'react-router-dom'
 
 export default function Dashboard() {
-	let { path, url } = useRouteMatch()
+	let { path } = useRouteMatch()
 	let history = useHistory()
 	function handleLogout() {
+		localStorage.clear()
 		history.push('/')
 	}
 	return (
@@ -27,17 +22,22 @@ export default function Dashboard() {
 						<div className="w-full h-full px-5">
 							<div className="h-full flex justify-start items-center">
 								<div className="w-3/12">
-									<div className="w-12 h-12">
+									<div
+										className="w-12 h-12"
+										onClick={() => {
+											history.push(`/dashboard/user/${localStorage.id}`)
+										}}
+									>
 										<img
 											className="rounded-full object-fill w-full h-full cursor-pointer"
-											src="https://i.imgur.com/657wEgh.jpg"
-											alt="profile picture"
+											src={localStorage.profilePicture}
+											alt="profile"
 										/>
 									</div>
 								</div>
 								<div className="w-6/12">
 									<h1 className="text-left text-white font-semibold text-lg">
-										@Username
+										{localStorage.username}
 									</h1>
 								</div>
 								<div className="w-3/12">

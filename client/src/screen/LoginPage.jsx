@@ -1,33 +1,47 @@
 import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 // import { useDispatch } from 'react-redux'
+import axios from 'axios'
 
 export default function LoginPage() {
 	let history = useHistory()
 
 	const [dataLogin, setLogin] = useState({
-		email: "",
-		password: ""
+		email: '',
+		password: '',
 	})
 
 	const handleChange = (e) => {
 		setLogin({
-		  ...dataLogin,
-		  [e.target.name]: e.target.value
+			...dataLogin,
+			[e.target.name]: e.target.value,
 		})
 	}
 
-	const handleLogin = () => {
-		// axios({
-
-		// })
-		history.push('/dashboard/user/1')
+	const handleLogin = (event) => {
+		event.preventDefault()
+		axios({
+			method: 'POST',
+			url: 'http://localhost:3000/login',
+			data: {
+				email: dataLogin.email,
+				password: dataLogin.password,
+			},
+		})
+			.then((response) => {
+				// console.log(response, 'ini adalah response login ');
+				console.log(response.data)
+				localStorage.setItem('id', response.data.id)
+				localStorage.setItem('access_token', response.data.access_token)
+				localStorage.setItem('username', response.data.username)
+				localStorage.setItem('location', response.data.location)
+				localStorage.setItem('profilePicture', response.data.profilePicture)
+				history.push(`/dashboard/user/${response.data.id}`)
+			})
+			.catch((err) => {
+				console.log(`err`, err)
+			})
 	}
-
-	// function handleLogin(event) {
-	// 	event.preventDefault()
-	// 	history.push('/dashboard/user/1')
-	// }
 
 	return (
 		<>
@@ -50,7 +64,7 @@ export default function LoginPage() {
 						</h1>
 
 						<form
-							onSubmit={() => handleLogin()}
+							onSubmit={(event) => handleLogin(event)}
 							className="mt-6"
 							action="#"
 							method="POST"
@@ -78,7 +92,6 @@ export default function LoginPage() {
 									value={dataLogin.password}
 									onChange={handleChange}
 									placeholder="Enter Password"
-									minlength="6"
 									className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500
                         focus:bg-white focus:outline-none"
 									required
