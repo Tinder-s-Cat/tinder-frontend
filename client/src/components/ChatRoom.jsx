@@ -1,6 +1,8 @@
 import React from 'react'
 
 export default function ChatRoom() {
+	
+
 	return (
 		<div className=" bg-white p:2 sm:p-6  justify-between flex flex-col w-5/6 h-5/6 rounded-3xl shadow-lg">
 			<div className="flex sm:items-center justify-between py-3 border-b-2 border-gray-200">

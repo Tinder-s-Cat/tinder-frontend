@@ -53,7 +53,7 @@ export default function UserProfileCard() {
 					</div>
 					<div className="w-full h-2/3 p-12 flex justify-start flex-wrap">
 						{userProfile.Cats.length > 0 ? (
-							userProfile.Cats.map((el) => <CatCard status={true} />)
+							userProfile.Cats.map((el) => <CatCard payload={el} />)
 						) : (
 							<div className="self-center w-full">No data Cats Found</div>
 						)}

@@ -44,3 +44,71 @@ export function fetchUserById(payload) {
 			})
 	}
 }
+
+export function addCat({ payload, userId }) {
+	return function (dispatch, getState) {
+		axios({
+			method: 'POST',
+			url: `${BASE_URL}/cat`,
+			headers: { access_token: localStorage.access_token },
+			data: payload,
+		})
+			.then(({ data }) => {
+				// console.log('INI DATA>>>>', data)
+				dispatch(fetchUserById({ userId }))
+			})
+			.catch((err) => {
+				console.log(`err`, err)
+			})
+	}
+}
+
+export function deleteCat(payload) {
+	return function (dispatch, getState) {
+		axios({
+			method: 'DELETE',
+			url: `${BASE_URL}/cat/${payload.id}`,
+			headers: { access_token: localStorage.access_token },
+		}).then(({ data }) => {
+			dispatch(fetchUserById({ userId: payload.userId }))
+		})
+	}
+}
+
+export function editCat({ payload, userId, id }) {
+	return function (dispatch, getState) {
+		console.log(payload, 'KUCING')
+		axios({
+			method: 'PUT',
+			url: `${BASE_URL}/cat/${id}`,
+			headers: { access_token: localStorage.access_token },
+			data: payload,
+		})
+			.then(({ data }) => {
+				// console.log('INI HASIL EDIT>>>>', data)
+				dispatch(fetchUserById({ userId }))
+			})
+			.catch((err) => {
+				console.log(`err`, err)
+			})
+	}
+}
+
+export function patchCat({ payload, userId, id }) {
+	return function (dispatch, getState) {
+		console.log(payload, 'KUCING')
+		axios({
+			method: 'PATCH',
+			url: `${BASE_URL}/cat/${id}`,
+			headers: { access_token: localStorage.access_token },
+			data: payload,
+		})
+			.then(({ data }) => {
+				// console.log('INI HASIL EDIT>>>>', data)
+				dispatch(fetchUserById({ userId }))
+			})
+			.catch((err) => {
+				console.log(`err`, err)
+			})
+	}
+}
