@@ -187,7 +187,7 @@ export default function RegisterPage() {
 							<button
 								type="button"
 								onClick={getLocation}
-								class="flex-shrink-0 w-auto bg-purple-500 hover:bg-purple-700 rounded-lg shadow-xl bottom-1/2 font-medium text-white px-4 py-2"
+								className="flex-shrink-0 w-auto bg-purple-500 hover:bg-purple-700 rounded-lg shadow-xl bottom-1/2 font-medium text-white px-4 py-2"
 							>
 								SET
 							</button>

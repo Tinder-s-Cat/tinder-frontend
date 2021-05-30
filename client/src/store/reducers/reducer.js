@@ -1,4 +1,4 @@
-import { SHOWCATID, SET_PROFILEBYID } from '../actions/actionType'
+import { SHOWCATID, SET_PROFILEBYID, SET_FRIENDS } from '../actions/actionType'
 
 const initialState = {
 	listFriends: [],
@@ -15,6 +15,8 @@ function reducer(state = initialState, action) {
 			return { ...state, listFriends: payload }
 		case SET_PROFILEBYID:
 			return { ...state, profile: payload }
+		case SET_FRIENDS:
+			return { ...state, listFriends: payload }
 		default:
 			return state
 	}

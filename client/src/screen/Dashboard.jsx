@@ -1,13 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import UserProfile from '../components/UserProfileCard'
 import MatchesCard from '../components/MatchesCard'
 import SwapCard from '../components/SwapCard'
 import ChatRoom from '../components/ChatRoom'
 import { useHistory, Switch, Route, useRouteMatch } from 'react-router-dom'
-
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchFriendMatch } from '../store/actions/action'
 export default function Dashboard() {
 	let { path } = useRouteMatch()
+	let friendMatch = useSelector((state) => state.listFriends)
+	const dispatch = useDispatch()
 	let history = useHistory()
+
+	useEffect(() => {
+		dispatch(fetchFriendMatch())
+	}, [])
+
 	function handleLogout() {
 		localStorage.clear()
 		history.push('/')
@@ -60,11 +68,8 @@ export default function Dashboard() {
 					</div>
 				</div>
 				<div className="h-5/6 w-full overflow-y-auto">
-					<MatchesCard />
-					<MatchesCard />
-					<MatchesCard />
-					<MatchesCard />
-					<MatchesCard />
+					{friendMatch.length > 0 &&
+						friendMatch.map((el) => <MatchesCard key={el.id} payload={el} />)}
 				</div>
 			</section>
 			{/* Main Dashboard isinya nested router */}
