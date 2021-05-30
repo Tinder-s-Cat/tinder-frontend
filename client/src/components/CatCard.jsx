@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import {useSelector, useDispatch} from 'react-redux'
-import {useParams} from 'react-router-dom'
-import {patchCat} from '../store/actions/action'
+import { useSelector, useDispatch } from 'react-redux'
+import { useParams } from 'react-router-dom'
+import { patchCat, deleteCat } from '../store/actions/action'
 import EditForm from './EditForm'
 export default function CatCard({ payload }) {
 	const [showModal, setShowModal] = useState(false)
@@ -9,20 +9,21 @@ export default function CatCard({ payload }) {
 	const dispatch = useDispatch()
 	let { userId } = useParams()
 
-
 	function handlePatchStatus() {
 		let data = {
-			status: payload.status
+			status: payload.status,
 		}
-		if (payload.status === true){
+		if (payload.status === true) {
 			data.status = false
 		} else {
 			data.status = true
 		}
-		dispatch(patchCat({payload:data, userId, id:payload.id}))
+		dispatch(patchCat({ payload: data, userId, id: payload.id }))
 	}
-	
-	
+
+	function handleDelete() {
+		dispatch(deleteCat({ id: payload.id, userId }))
+	}
 
 	return (
 		<>
@@ -48,14 +49,24 @@ export default function CatCard({ payload }) {
 						inactive
 					</button>
 				)}
-				<button
-					onClick={() => {
-						setShowModal(true)
-					}}
-					className="absolute right-4 top-5 text-sm bg-white hover:bg-green-600 px-2 py-1"
-				>
-					Edit
-				</button>
+				<div className="absolute right-4 top-3 flex flex-col ">
+					<button
+						onClick={() => {
+							setShowModal(true)
+						}}
+						className="text-sm bg-white my-1 hover:bg-green-600 px-2 py-1"
+					>
+						Edit
+					</button>
+					<button
+						onClick={() => {
+							handleDelete()
+						}}
+						className="text-sm bg-red-600 my-1 hover:bg-red-700 px-2 py-1"
+					>
+						Delete
+					</button>
+				</div>
 				<img
 					className="object-fit w-full h-full"
 					src={payload.profilePicture}
