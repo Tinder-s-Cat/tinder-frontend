@@ -4,29 +4,19 @@ import CatCard from './CatCard'
 import AddForm from './AddForm'
 import Logo from '../assets/tindercat-02.png'
 import { useHistory, useParams } from 'react-router-dom'
-
-import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchUserById } from '../store/actions/action'
 
 export default function UserProfileCard() {
 	let { userId } = useParams()
+	let userProfile = useSelector((state) => state.profile)
+	const dispatch = useDispatch()
 	const history = useHistory()
 	const [showModal, setShowModal] = useState(false)
-	const [userProfile, setUserProfile] = useState({})
 
 	useEffect(() => {
-		axios({
-			method: 'GET',
-			url: `http://localhost:3000/friend/${userId}`,
-			headers: { access_token: localStorage.access_token },
-		})
-			.then(({ data }) => {
-				console.log(`data`, data)
-				setUserProfile(data)
-			})
-			.catch((err) => {
-				console.log(`err`, err)
-			})
-	}, [])
+		dispatch(fetchUserById({ userId }))
+	}, [userId])
 
 	const changePage = () => {
 		history.push('/dashboard/')
