@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 // import { useDispatch } from 'react-redux'
+import axios from 'axios'
 
 export default function LoginPage() {
 	let history = useHistory()
@@ -18,10 +19,23 @@ export default function LoginPage() {
 	}
 
 	const handleLogin = () => {
-		// axios({
-
-		// })
-		history.push('/dashboard/user/1')
+		// console.log(dataLogin, 'INI DATA NYA');
+		axios({
+			method: 'POST',
+			url: 'http://localhost:3000/login',
+			data: {
+				email: dataLogin.email,
+				password: dataLogin.password
+			}
+		})
+		.then(( response ) => {
+			// console.log(response, 'ini adalah response login ');
+			localStorage.setItem('id', response.data.id)
+			localStorage.setItem('access_token', response.data.access_token)
+			localStorage.setItem('email', response.data.email)
+			localStorage.setItem('password', response.data.password)
+			history.push(`/dashboard/user/1`)
+		})
 	}
 
 	// function handleLogin(event) {
@@ -78,7 +92,6 @@ export default function LoginPage() {
 									value={dataLogin.password}
 									onChange={handleChange}
 									placeholder="Enter Password"
-									minlength="6"
 									className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500
                         focus:bg-white focus:outline-none"
 									required

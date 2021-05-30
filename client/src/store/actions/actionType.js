@@ -1,1 +1,1 @@
-export const SHOWUSER = 'user/setUser'
+export const SHOWCATID = 'cats/setCatsId'

@@ -2,9 +2,18 @@ import React, { useState } from 'react'
 import CatCard from './CatCard'
 import EditForm from './EditForm'
 import AddForm from './AddForm'
+import Logo from '../assets/tindercat-02.png'
+import {
+	useHistory
+} from 'react-router-dom'
 
 export default function UserProfileCard() {
+	const history = useHistory()
 	const [showModal, setShowModal] = useState(false)
+
+	const changePage = () => {
+		history.push('/dashboard/')
+	}
 
 	return (
 		<>
@@ -46,6 +55,14 @@ export default function UserProfileCard() {
 					<AddForm setShowModal={() => setShowModal(!showModal)} />
 				</>
 			) : null}
+
+			<div class="flex items-end justify-end fixed bottom-0 right-0 mb-4 mr-4 z-10">
+				<div>
+					<button title="Buy me a beer" onClick={() => changePage()} target="_blank" class="block w-16 h-16 rounded-full transition-all shadow hover:shadow-lg transform hover:scale-110 hover:rotate-12">
+						<img class="object-cover object-center w-full h-full rounded-full" src={Logo} />
+					</button>
+				</div>
+			</div>
 		</>
 	)
 }
