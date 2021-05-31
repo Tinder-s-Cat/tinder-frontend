@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import CatCard from './CatCard'
 
 import AddForm from './AddForm'
-import Logo from '../assets/tindercat-02.png'
+import Logo from '../assets/catinder-05.png'
 import { useHistory, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchUserById } from '../store/actions/action'
@@ -69,7 +69,7 @@ export default function UserProfileCard() {
 			<div class="flex items-end justify-end fixed bottom-0 right-0 mb-4 mr-4 z-10">
 				<div>
 					<button
-						title="Buy me a beer"
+						title="find a partner"
 						onClick={() => changePage()}
 						target="_blank"
 						class="block w-16 h-16 rounded-full transition-all shadow hover:shadow-lg transform hover:scale-110 hover:rotate-12"

@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {useParams} from 'react-router-dom'
 import { addCat } from '../store/actions/action'
+import Swal from 'sweetalert2'
 
 export default function AddForm({ setShowModal }) {
 	let [cat, setCat] = useState({
@@ -28,6 +29,13 @@ export default function AddForm({ setShowModal }) {
 		}
 		console.log('MASUK 2', payload)
 		dispatch(addCat({payload,userId}))
+		Swal.fire({
+			position: 'center',
+			icon: 'success',
+			title: 'Successfully Added Your Cats',
+			showConfirmButton: false,
+			timer: 1500
+		  })
 		// setCat('')
 		setShowModal()
 	}

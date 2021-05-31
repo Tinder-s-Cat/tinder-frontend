@@ -30,10 +30,6 @@ export default function SwapCard() {
 			<div className="flex flex-col">
 				<div className="p-16">
 					<div className="w-96 m-auto ">
-						{/* {
-							cats.map((cat, idx) => <Cards key={idx} cat={cat} />)
-						} */}
-
 						{
 							cats.length === 0 ? <div>DATA NOT FOUND</div> :
 							<Cards cat={cats[0]} />

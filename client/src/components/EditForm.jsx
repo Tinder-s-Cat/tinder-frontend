@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {useParams} from 'react-router-dom'
 import { editCat } from '../store/actions/action'
-
+import Swal from 'sweetalert2'
 
 export default function EditForm({ setShowModal, payload }) {
 	let [cat, setCat] = useState({
@@ -26,6 +26,22 @@ export default function EditForm({ setShowModal, payload }) {
 			description: cat.description,
 		}
 		dispatch(editCat({payload:data, userId, id:payload.id}))
+		const Toast = Swal.mixin({
+			toast: true,
+			position: 'top-end',
+			showConfirmButton: false,
+			timer: 3000,
+			timerProgressBar: true,
+			didOpen: (toast) => {
+				toast.addEventListener('mouseenter', Swal.stopTimer)
+				toast.addEventListener('mouseleave', Swal.resumeTimer)
+			},
+		})
+
+		Toast.fire({
+			icon: 'success',
+			title: 'Register success!',
+		})
 		setShowModal()
 
 	}

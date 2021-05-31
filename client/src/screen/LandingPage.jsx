@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Logo from '../assets/tindercat.png'
+import Logo from '../assets/catinder-03.png'
 export default function LandingPage() {
 	return (
 		<div className="background-cat w-screen h-screen">

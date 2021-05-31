@@ -18,7 +18,7 @@ function reducer(state = initialState, action) {
 		case SET_PROFILEBYID:
 			return { ...state, profile: payload }
 		case SHOWGETCAT:
-			console.log(payload, 'INI PAYLOAD NYA');
+			// console.log(payload, 'INI PAYLOAD NYA');
 			return { ...state, randomCards: payload }
 		case SET_RANDOMCARD:
 			return { ...state, randomCards: payload } 

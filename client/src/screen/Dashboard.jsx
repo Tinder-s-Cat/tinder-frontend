@@ -4,6 +4,7 @@ import MatchesCard from '../components/MatchesCard'
 import SwapCard from '../components/SwapCard'
 import ChatRoom from '../components/ChatRoom'
 import { useHistory, Switch, Route, useRouteMatch } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 export default function Dashboard() {
 	let { path } = useRouteMatch()
@@ -12,6 +13,9 @@ export default function Dashboard() {
 		localStorage.clear()
 		history.push('/')
 	}
+	const useProfile = useSelector(state => state.profile)
+	console.log(useProfile, 'INI ADALAH PROFILE');
+
 	return (
 		<div className="h-screen w-screen bg-gray-200 flex flex-row">
 			{/* Sidebar */}
