@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-// import { useDispatch } from 'react-redux'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 
@@ -52,7 +51,7 @@ export default function LoginPage() {
 
 				Toast.fire({
 					icon: 'success',
-					title: 'Register success!',
+					title: 'Login success!',
 				})
 			})
 			.catch((err) => {

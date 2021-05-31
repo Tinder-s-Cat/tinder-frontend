@@ -4,6 +4,7 @@ import MatchesCard from '../components/MatchesCard'
 import SwapCard from '../components/SwapCard'
 import ChatRoom from '../components/ChatRoom'
 import { useHistory, Switch, Route, useRouteMatch } from 'react-router-dom'
+// import { useSelector } from 'react-redux'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchFriendMatch, addChatMessage } from '../store/actions/action'
 import socket from '../api/socket'
@@ -50,6 +51,9 @@ export default function Dashboard() {
 		localStorage.clear()
 		history.push('/')
 	}
+	// const useProfile = useSelector(state => state.profile)
+	// console.log(useProfile, 'INI ADALAH PROFILE');
+
 	return (
 		<div className="h-screen w-screen bg-gray-200 flex flex-row">
 			{/* Sidebar */}
@@ -103,7 +107,7 @@ export default function Dashboard() {
 				</div>
 			</section>
 			{/* Main Dashboard isinya nested router */}
-			<section className="w-9/12 h-full bg-yellow-50 flex flex-row items-center justify-center">
+			<section className="w-9/12 h-full bg-yellow-500 flex flex-row items-center justify-center">
 				<Switch>
 					<Route exact path={path}>
 						<SwapCard />

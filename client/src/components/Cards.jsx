@@ -9,7 +9,7 @@ export function Cards(cat) {
                         <img
                             src={cat.cat.profilePicture}
                             alt="Placeholder"
-                            className="rounded-t-xl object-cover h-48 w-full"
+                            className="rounded-t-xl object-cover w-full"
                         />
                     </a>
                 </div>

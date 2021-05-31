@@ -28,6 +28,7 @@ function reducer(state = initialState, action) {
 		case SET_CHAT_MESSAGE:
 			return { ...state, chatMessage: payload }
 		case SHOWGETCAT:
+			// console.log(payload, 'INI PAYLOAD NYA');
 			console.log(payload, 'INI PAYLOAD NYA')
 			return { ...state, randomCards: payload }
 		case SET_RANDOMCARD:

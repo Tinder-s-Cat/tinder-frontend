@@ -20,7 +20,6 @@ export default function RegisterPage() {
 		})
 	}
 
-	// ini tinggal nerima router nya aja dari server
 	const handleSubmit = (event) => {
 		event.preventDefault()
 		axios({
@@ -84,7 +83,6 @@ export default function RegisterPage() {
 				url: `https://api.opencagedata.com/geocode/v1/json?q=${coor.coords.latitude}+${coor.coords.longitude}&key=6bfeaaf22afb419d95cfda8e999af2a6`,
 			})
 				.then(({ data }) => {
-					// console.log(data.results[0].components.city, 'INI DATA NYA');
 					const newLocation = data.results[0].components.city
 					setNewUser({
 						...newUser,

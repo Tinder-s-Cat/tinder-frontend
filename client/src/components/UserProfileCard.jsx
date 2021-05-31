@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import CatCard from './CatCard'
-
+import './Component.css'
 import AddForm from './AddForm'
-import Logo from '../assets/tindercat-02.png'
+import Logo from '../assets/animasi-bergerak.gif'
 import { useHistory, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchUserById } from '../store/actions/action'
@@ -25,7 +25,7 @@ export default function UserProfileCard() {
 	return (
 		<>
 			{userProfile.id !== undefined && (
-				<div className="h-5/6 md:w-4/6 shadow-2xl overflow-y-auto bg-white">
+				<div className="h-5/6 md:w-4/6 shadow-2xl bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 overflow-y-auto ">
 					<div className="w-full h-1/3 px-24 py-10 flex items-center">
 						<div className="w-3/12 m-5 flex justify-end">
 							<div className="w-32 h-32">
@@ -71,7 +71,7 @@ export default function UserProfileCard() {
 			<div className="flex items-end justify-end fixed bottom-0 right-0 mb-4 mr-4 z-10">
 				<div>
 					<button
-						title="Buy me a beer"
+						title="find a partner"
 						onClick={() => changePage()}
 						target="_blank"
 						className="block w-16 h-16 rounded-full transition-all shadow hover:shadow-lg transform hover:scale-110 hover:rotate-12"
