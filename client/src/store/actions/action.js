@@ -1,4 +1,4 @@
-import { SET_PROFILEBYID, SET_FRIENDS } from './actionType'
+import { SET_PROFILEBYID, SET_FRIENDS, SET_CHAT_MESSAGE } from './actionType'
 import axios from 'axios'
 
 const BASE_URL = 'http://localhost:3000'
@@ -8,6 +8,19 @@ export function setUserById(payload) {
 }
 export function setFriends(payload) {
 	return { type: SET_FRIENDS, payload: payload }
+}
+export function setChatMessage(payload) {
+	return { type: SET_CHAT_MESSAGE, payload: payload }
+}
+
+export function addChatMessage(payload) {
+	return function (dispatch, getState) {
+		let msg = JSON.stringify(getState().chatMessage)
+		dispatch(setChatMessage([...JSON.parse(msg), payload]))
+	}
+}
+export function fetchChatMessage(payload) {
+	return function (dispatch, getState) {}
 }
 
 export function fetchFriendMatch(payload) {

@@ -6,6 +6,9 @@ import ChatRoom from '../components/ChatRoom'
 import { useHistory, Switch, Route, useRouteMatch } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchFriendMatch } from '../store/actions/action'
+import socket from '../api/socket'
+import Swal from 'sweetalert2'
+
 export default function Dashboard() {
 	let { path } = useRouteMatch()
 	let friendMatch = useSelector((state) => state.listFriends)
@@ -13,6 +16,25 @@ export default function Dashboard() {
 	let history = useHistory()
 
 	useEffect(() => {
+		socket.on('welcome', (data) => {
+			const Toast = Swal.mixin({
+				toast: true,
+				position: 'top-end',
+				showConfirmButton: false,
+				timer: 3000,
+				timerProgressBar: true,
+				didOpen: (toast) => {
+					toast.addEventListener('mouseenter', Swal.stopTimer)
+					toast.addEventListener('mouseleave', Swal.resumeTimer)
+				},
+			})
+
+			Toast.fire({
+				icon: 'success',
+				title: data,
+			})
+		})
+
 		dispatch(fetchFriendMatch())
 	}, [])
 

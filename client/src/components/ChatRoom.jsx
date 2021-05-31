@@ -1,7 +1,32 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import socket from '../api/socket'
+import MsgReceiver from './MsgReceiver'
+import MsgSender from './MsgSender'
+import { useParams } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { addChatMessage } from '../store/actions/action'
 
 export default function ChatRoom() {
-	
+	let { chatroomId } = useParams()
+	const dispatch = useDispatch()
+	const [msg, setMsg] = useState('')
+	let chatMessage = useSelector((state) => state.chatMessage)
+
+	useEffect(() => {
+		socket.emit('join-room', chatroomId)
+		socket.on('receive-message', (data) => {
+			dispatch(addChatMessage(data))
+		})
+	}, [chatroomId])
+
+	function handleSendMessage() {
+		console.log('masuk')
+		socket.emit('send-message', {
+			message: msg,
+			UserId: localStorage.id,
+			ChatRoomId: chatroomId,
+		})
+	}
 
 	return (
 		<div className=" bg-white p:2 sm:p-6  justify-between flex flex-col w-5/6 h-5/6 rounded-3xl shadow-lg">
@@ -27,173 +52,16 @@ export default function ChatRoom() {
 			</div>
 			<div
 				id="messages"
-				className="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch"
+				className="flex flex-col space-y-4 p-3 h-full overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch"
 			>
-				<div className="chat-message">
-					<div className="flex items-end">
-						<div className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
-							<div>
-								<span className="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600">
-									hai diaz, boleh kenalan?
-								</span>
-							</div>
-						</div>
-						<img
-							src="https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144"
-							alt="My profile"
-							className="w-6 h-6 rounded-full order-1"
-						/>
-					</div>
-				</div>
-				<div className="chat-message">
-					<div className="flex items-end justify-end">
-						<div className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-1 items-end">
-							<div>
-								<span className="px-4 py-2 rounded-lg inline-block rounded-br-none bg-blue-600 text-white ">
-									hai majid, boleh banget tuh
-								</span>
-							</div>
-						</div>
-						<img
-							src="https://images.unsplash.com/photo-1590031905470-a1a1feacbb0b?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144"
-							alt="My profile"
-							className="w-6 h-6 rounded-full order-2"
-						/>
-					</div>
-				</div>
-				<div className="chat-message">
-					<div className="flex items-end">
-						<div className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
-							<div>
-								<span className="px-4 py-2 rounded-lg inline-block bg-gray-300 text-gray-600">
-									itu kucing kamu lucu banget, berapa tahun kucing nya?
-								</span>
-							</div>
-						</div>
-						<img
-							src="https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144"
-							alt="My profile"
-							className="w-6 h-6 rounded-full order-1"
-						/>
-					</div>
-				</div>
-				<div className="chat-message">
-					<div className="flex items-end justify-end">
-						<div className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-1 items-end">
-							<div>
-								<span className="px-4 py-2 rounded-lg inline-block rounded-br-none bg-blue-600 text-white ">
-									Any updates on this issue? I'm getting the same error when
-									trying to install devtools. Thanks
-								</span>
-							</div>
-						</div>
-						<img
-							src="https://images.unsplash.com/photo-1590031905470-a1a1feacbb0b?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144"
-							alt="My profile"
-							className="w-6 h-6 rounded-full order-2"
-						/>
-					</div>
-				</div>
-				<div className="chat-message">
-					<div className="flex items-end">
-						<div className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
-							<div>
-								<span className="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600">
-									Thanks for your message David. I thought I'm alone with this
-									issue. Please, 👍 the issue to support it :)
-								</span>
-							</div>
-						</div>
-						<img
-							src="https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144"
-							alt="My profile"
-							className="w-6 h-6 rounded-full order-1"
-						/>
-					</div>
-				</div>
-				<div className="chat-message">
-					<div className="flex items-end justify-end">
-						<div className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-1 items-end">
-							<div>
-								<span className="px-4 py-2 rounded-lg inline-block bg-blue-600 text-white ">
-									Are you using sudo?
-								</span>
-							</div>
-							<div>
-								<span className="px-4 py-2 rounded-lg inline-block rounded-br-none bg-blue-600 text-white ">
-									Run this command sudo chown -R `whoami` then install the
-									package globally without using sudo
-								</span>
-							</div>
-						</div>
-						<img
-							src="https://images.unsplash.com/photo-1590031905470-a1a1feacbb0b?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144"
-							alt="My profile"
-							className="w-6 h-6 rounded-full order-2"
-						/>
-					</div>
-				</div>
-				<div className="chat-message">
-					<div className="flex items-end">
-						<div className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
-							<div>
-								<span className="px-4 py-2 rounded-lg inline-block bg-gray-300 text-gray-600">
-									It seems like you are from Mac OS world. There is no /Users/
-									folder on linux 😄
-								</span>
-							</div>
-							<div>
-								<span className="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600">
-									I have no issue with any other packages installed with root
-									permission globally.
-								</span>
-							</div>
-						</div>
-						<img
-							src="https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144"
-							alt="My profile"
-							className="w-6 h-6 rounded-full order-1"
-						/>
-					</div>
-				</div>
-				<div className="chat-message">
-					<div className="flex items-end justify-end">
-						<div className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-1 items-end">
-							<div>
-								<span className="px-4 py-2 rounded-lg inline-block rounded-br-none bg-blue-600 text-white ">
-									yes, I have a mac. I never had issues with root permission as
-									well, but this helped me to solve the problem
-								</span>
-							</div>
-						</div>
-						<img
-							src="https://images.unsplash.com/photo-1590031905470-a1a1feacbb0b?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144"
-							alt="My profile"
-							className="w-6 h-6 rounded-full order-2"
-						/>
-					</div>
-				</div>
-				<div className="chat-message">
-					<div className="flex items-end">
-						<div className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
-							<div>
-								<span className="px-4 py-2 rounded-lg inline-block bg-gray-300 text-gray-600">
-									I get the same error on Arch Linux (also with sudo)
-								</span>
-							</div>
-							<div>
-								<span className="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600">
-									even i am facing
-								</span>
-							</div>
-						</div>
-						<img
-							src="https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144"
-							alt="My profile"
-							className="w-6 h-6 rounded-full order-1"
-						/>
-					</div>
-				</div>
+				{/* Chat Message */}
+				{chatMessage.map((el, index) => {
+					if (el.UserId === localStorage.id) {
+						return <MsgReceiver key={index} payload={el} />
+					} else {
+						return <MsgSender key={index} payload={el} />
+					}
+				})}
 			</div>
 			<div className="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0">
 				<div className="relative flex items-center">
@@ -218,11 +86,18 @@ export default function ChatRoom() {
 					</button>
 					<input
 						type="text"
+						value={msg}
+						onChange={(e) => {
+							setMsg(e.target.value)
+						}}
 						placeholder="Write Something"
 						className="w-5/6 focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-full py-3"
 					/>
 					<div className=" ml-2 items-center inset-y-0 hidden sm:flex">
 						<button
+							onClick={() => {
+								handleSendMessage()
+							}}
 							type="button"
 							className="inline-flex items-center justify-center rounded-full h-12 w-12 transition duration-500 ease-in-out text-white bg-blue-500 hover:bg-blue-400 focus:outline-none"
 						>

@@ -22,7 +22,9 @@ export default function CatCard({ payload }) {
 	}
 
 	function handleDelete() {
-		dispatch(deleteCat({ id: payload.id, userId }))
+		if (userId === localStorage.id) {
+			dispatch(deleteCat({ id: payload.id, userId }))
+		}
 	}
 
 	return (
@@ -49,24 +51,26 @@ export default function CatCard({ payload }) {
 						inactive
 					</button>
 				)}
-				<div className="absolute right-4 top-3 flex flex-col ">
-					<button
-						onClick={() => {
-							setShowModal(true)
-						}}
-						className="text-sm bg-white my-1 hover:bg-green-600 px-2 py-1"
-					>
-						Edit
-					</button>
-					<button
-						onClick={() => {
-							handleDelete()
-						}}
-						className="text-sm bg-red-600 my-1 hover:bg-red-700 px-2 py-1"
-					>
-						Delete
-					</button>
-				</div>
+				{userId === localStorage.id && (
+					<div className="absolute right-4 top-3 flex flex-col ">
+						<button
+							onClick={() => {
+								setShowModal(true)
+							}}
+							className="text-sm bg-white my-1 hover:bg-green-600 px-2 py-1"
+						>
+							Edit
+						</button>
+						<button
+							onClick={() => {
+								handleDelete()
+							}}
+							className="text-sm bg-red-600 my-1 hover:bg-red-700 px-2 py-1"
+						>
+							Delete
+						</button>
+					</div>
+				)}
 				<img
 					className="object-fit w-full h-full"
 					src={payload.profilePicture}
