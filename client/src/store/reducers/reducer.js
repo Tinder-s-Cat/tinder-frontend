@@ -3,6 +3,8 @@ import {
 	SET_PROFILEBYID,
 	SET_FRIENDS,
 	SET_CHAT_MESSAGE,
+	SHOWGETCAT,
+	SET_RANDOMCARD,
 } from '../actions/actionType'
 
 const initialState = {
@@ -25,6 +27,11 @@ function reducer(state = initialState, action) {
 			return { ...state, listFriends: payload }
 		case SET_CHAT_MESSAGE:
 			return { ...state, chatMessage: payload }
+		case SHOWGETCAT:
+			console.log(payload, 'INI PAYLOAD NYA')
+			return { ...state, randomCards: payload }
+		case SET_RANDOMCARD:
+			return { ...state, randomCards: payload }
 		default:
 			return state
 	}

@@ -1,4 +1,10 @@
-import { SET_PROFILEBYID, SET_FRIENDS, SET_CHAT_MESSAGE } from './actionType'
+import {
+	SET_PROFILEBYID,
+	SET_FRIENDS,
+	SET_CHAT_MESSAGE,
+	SHOWGETCAT,
+	SET_RANDOMCARD,
+} from './actionType'
 import axios from 'axios'
 
 const BASE_URL = 'http://localhost:3000'
@@ -20,7 +26,22 @@ export function addChatMessage(payload) {
 	}
 }
 export function fetchChatMessage(payload) {
-	return function (dispatch, getState) {}
+	return function (dispatch, getState) {
+		axios({
+			method: 'GET',
+			url: `${BASE_URL}/chatroom/${payload.ChatRoomId}/${payload.isMatchId}`,
+			headers: {
+				access_token: localStorage.access_token,
+			},
+		})
+			.then(({ data }) => {
+				dispatch(setChatMessage(data))
+				console.log('<<<<<<<')
+			})
+			.catch((err) => {
+				console.log(err)
+			})
+	}
 }
 
 export function fetchFriendMatch(payload) {
@@ -41,6 +62,9 @@ export function fetchFriendMatch(payload) {
 			})
 	}
 }
+export function setRandomCard(payload) {
+	return { type: SET_RANDOMCARD, payload: payload }
+}
 export function fetchUserById(payload) {
 	return function (dispatch, getState) {
 		axios({
@@ -55,6 +79,48 @@ export function fetchUserById(payload) {
 			.catch((err) => {
 				console.log(`err`, err)
 			})
+	}
+}
+export function postLike({ UserId, CatId }) {
+	return function (dispatch, getState) {
+		axios({
+			method: 'POST',
+			url: BASE_URL + '/like',
+			headers: { access_token: localStorage.access_token },
+			data: {
+				UserId,
+				CatId,
+			},
+		})
+			.then(({ data }) => {
+				console.log(data, 'INI DATA LIKE')
+			})
+			.catch((err) => {
+				console.log(err)
+			})
+	}
+}
+export function getCats() {
+	return function (dispatch, getState) {
+		axios({
+			method: 'GET',
+			url: BASE_URL + `/cat`,
+			headers: { access_token: localStorage.access_token },
+		})
+			.then(({ data }) => {
+				console.log(data, 'INI DATA NYA')
+				dispatch({ type: SHOWGETCAT, payload: data })
+			})
+			.catch((err) => {
+				console.log(err)
+			})
+	}
+}
+export function skipCard() {
+	return function (dispatch, getState) {
+		let cards = JSON.parse(JSON.stringify(getState().randomCards))
+		cards.shift()
+		dispatch(setRandomCard(cards))
 	}
 }
 

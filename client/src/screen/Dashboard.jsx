@@ -5,7 +5,7 @@ import SwapCard from '../components/SwapCard'
 import ChatRoom from '../components/ChatRoom'
 import { useHistory, Switch, Route, useRouteMatch } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchFriendMatch } from '../store/actions/action'
+import { fetchFriendMatch, addChatMessage } from '../store/actions/action'
 import socket from '../api/socket'
 import Swal from 'sweetalert2'
 
@@ -16,6 +16,11 @@ export default function Dashboard() {
 	let history = useHistory()
 
 	useEffect(() => {
+		socket.on('receive-message', (data) => {
+			console.log('chat masuk', data)
+			dispatch(addChatMessage(data))
+		})
+
 		socket.on('welcome', (data) => {
 			const Toast = Swal.mixin({
 				toast: true,
@@ -36,6 +41,9 @@ export default function Dashboard() {
 		})
 
 		dispatch(fetchFriendMatch())
+		return () => {
+			socket.close()
+		}
 	}, [])
 
 	function handleLogout() {
@@ -103,7 +111,7 @@ export default function Dashboard() {
 					<Route path={`${path}/user/:userId`}>
 						<UserProfile />
 					</Route>
-					<Route path={`${path}/chat/:chatroomId`}>
+					<Route path={`${path}/chat/:chatroomId/:username`}>
 						<ChatRoom />
 					</Route>
 				</Switch>

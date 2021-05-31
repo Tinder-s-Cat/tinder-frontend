@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function MsgSender({ payload }) {
+export default function MsgSender({ payload, profilePicture }) {
 	return (
 		<div className="chat-message">
 			<div className="flex items-end">
@@ -12,7 +12,7 @@ export default function MsgSender({ payload }) {
 					</div>
 				</div>
 				<img
-					src={payload.id}
+					src={profilePicture}
 					alt="My profile"
 					className="w-6 h-6 rounded-full order-1"
 				/>

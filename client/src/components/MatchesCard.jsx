@@ -6,7 +6,7 @@ export default function MatchesCard({ payload }) {
 		history.push(`/dashboard/user/${payload.UserId}`)
 	}
 	function toChatroom() {
-		history.push(`/dashboard/chat/${payload.id}`)
+		history.push(`/dashboard/chat/${payload.id}/${payload.username}`)
 	}
 	return (
 		<div

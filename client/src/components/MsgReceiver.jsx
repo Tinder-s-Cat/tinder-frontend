@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function MsgReceiver({ payload }) {
+export default function MsgReceiver({ payload, profilePicture }) {
 	return (
 		<>
 			<div className="chat-message">
@@ -13,7 +13,7 @@ export default function MsgReceiver({ payload }) {
 						</div>
 					</div>
 					<img
-						src={payload.id}
+						src={profilePicture}
 						alt="My profile"
 						className="w-6 h-6 rounded-full order-2"
 					/>

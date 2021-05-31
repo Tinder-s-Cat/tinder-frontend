@@ -4,49 +4,81 @@ import MsgReceiver from './MsgReceiver'
 import MsgSender from './MsgSender'
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { addChatMessage } from '../store/actions/action'
+import { fetchChatMessage, fetchFriendMatch } from '../store/actions/action'
 
 export default function ChatRoom() {
-	let { chatroomId } = useParams()
-	const dispatch = useDispatch()
+	let { chatroomId, username } = useParams()
+	let dispatch = useDispatch()
+	const friends = useSelector((state) => state.listFriends)
 	const [msg, setMsg] = useState('')
 	let chatMessage = useSelector((state) => state.chatMessage)
+	const [profilePicture, setProfilePicture] = useState('')
+	let messagesEnd = React.createRef()
 
 	useEffect(() => {
+		// dispatch(fetchFriendMatch())
 		socket.emit('join-room', chatroomId)
-		socket.on('receive-message', (data) => {
-			dispatch(addChatMessage(data))
-		})
 	}, [chatroomId])
 
-	function handleSendMessage() {
-		console.log('masuk')
+	useEffect(() => {
+		let temp = friends.filter((el) => el.username === username)
+		setProfilePicture(temp.length > 0 ? temp[0].profilePicture : '')
+		console.log(temp, 'ini TEMP')
+		if (temp.length > 0) {
+			dispatch(
+				fetchChatMessage({
+					ChatRoomId: chatroomId,
+					isMatchId: temp[0].IsMatchId,
+				})
+			)
+		}
+	}, [friends, chatroomId])
+
+	useEffect(() => {
+		messagesEnd.scrollIntoView({ behavior: 'smooth' })
+	}, [chatMessage])
+
+	function handleSendMessage(event) {
+		event.preventDefault()
 		socket.emit('send-message', {
 			message: msg,
 			UserId: localStorage.id,
 			ChatRoomId: chatroomId,
 		})
+		setMsg('')
 	}
 
+	const handleKeyPress = (event) => {
+		event.preventDefault()
+		if (event.key === 'Enter' && msg !== '') {
+			socket.emit('send-message', {
+				message: msg,
+				UserId: localStorage.id,
+				ChatRoomId: chatroomId,
+			})
+			setMsg('')
+		}
+	}
 	return (
 		<div className=" bg-white p:2 sm:p-6  justify-between flex flex-col w-5/6 h-5/6 rounded-3xl shadow-lg">
 			<div className="flex sm:items-center justify-between py-3 border-b-2 border-gray-200">
 				<div className="flex items-center space-x-4">
 					<img
-						src="https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144"
+						src={profilePicture}
 						alt=""
 						className="w-10 sm:w-16 h-10 sm:h-16 rounded-full"
 					/>
 					<div className="flex flex-col leading-tight">
 						<div className="text-2xl mt-1 flex items-center">
-							<span className="text-gray-700 mr-3">Abdul Majid</span>
-							<span className="text-green-500">
+							<span className="text-gray-700 font-bold text-xl mr-3">
+								{username}
+							</span>
+							{/* <span className="text-green-500">
 								<svg width="10" height="10">
 									<circle cx="5" cy="5" r="5" fill="currentColor"></circle>
 								</svg>
-							</span>
+							</span> */}
 						</div>
-						<span className="text-lg text-gray-600">Junior Developer</span>
 					</div>
 				</div>
 			</div>
@@ -56,12 +88,30 @@ export default function ChatRoom() {
 			>
 				{/* Chat Message */}
 				{chatMessage.map((el, index) => {
-					if (el.UserId === localStorage.id) {
-						return <MsgReceiver key={index} payload={el} />
+					if (Number(el.UserId) === Number(localStorage.id)) {
+						return (
+							<MsgReceiver
+								key={index}
+								profilePicture={localStorage.profilePicture}
+								payload={el}
+							/>
+						)
 					} else {
-						return <MsgSender key={index} payload={el} />
+						return (
+							<MsgSender
+								key={index}
+								profilePicture={profilePicture}
+								payload={el}
+							/>
+						)
 					}
 				})}
+				<div
+					className="bg-red-600"
+					ref={(el) => {
+						messagesEnd = el
+					}}
+				></div>
 			</div>
 			<div className="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0">
 				<div className="relative flex items-center">
@@ -87,6 +137,7 @@ export default function ChatRoom() {
 					<input
 						type="text"
 						value={msg}
+						onKeyUp={(e) => handleKeyPress(e)}
 						onChange={(e) => {
 							setMsg(e.target.value)
 						}}
@@ -95,8 +146,8 @@ export default function ChatRoom() {
 					/>
 					<div className=" ml-2 items-center inset-y-0 hidden sm:flex">
 						<button
-							onClick={() => {
-								handleSendMessage()
+							onClick={(e) => {
+								handleSendMessage(e)
 							}}
 							type="button"
 							className="inline-flex items-center justify-center rounded-full h-12 w-12 transition duration-500 ease-in-out text-white bg-blue-500 hover:bg-blue-400 focus:outline-none"
