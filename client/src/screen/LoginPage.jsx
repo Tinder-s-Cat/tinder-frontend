@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 // import { useDispatch } from 'react-redux'
 import axios from 'axios'
+import Swal from 'sweetalert2'
 
 export default function LoginPage() {
 	let history = useHistory()
@@ -37,6 +38,22 @@ export default function LoginPage() {
 				localStorage.setItem('location', response.data.location)
 				localStorage.setItem('profilePicture', response.data.profilePicture)
 				history.push(`/dashboard/user/${response.data.id}`)
+				const Toast = Swal.mixin({
+					toast: true,
+					position: 'top-end',
+					showConfirmButton: false,
+					timer: 3000,
+					timerProgressBar: true,
+					didOpen: (toast) => {
+						toast.addEventListener('mouseenter', Swal.stopTimer)
+						toast.addEventListener('mouseleave', Swal.resumeTimer)
+					},
+				})
+
+				Toast.fire({
+					icon: 'success',
+					title: 'Register success!',
+				})
 			})
 			.catch((err) => {
 				console.log(`err`, err)

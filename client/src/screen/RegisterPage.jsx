@@ -44,7 +44,7 @@ export default function RegisterPage() {
 					newUser.profilPicture === '' ||
 					newUser.location === ''
 				) {
-					console.log('tidak dapat login')
+					console.log('tidak dapat register')
 				} else {
 					const Toast = Swal.mixin({
 						toast: true,

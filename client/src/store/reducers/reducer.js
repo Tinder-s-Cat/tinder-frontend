@@ -1,8 +1,10 @@
-import { SHOWCATID, SET_PROFILEBYID } from '../actions/actionType'
+import { SHOWCATID, SET_PROFILEBYID, SHOWGETCAT, SET_RANDOMCARD } from '../actions/actionType'
 
 const initialState = {
 	listFriends: [],
-	randomCards: [],
+	randomCards: [
+		
+	],
 	profile: {},
 	loading: false,
 	error: null,
@@ -15,6 +17,11 @@ function reducer(state = initialState, action) {
 			return { ...state, listFriends: payload }
 		case SET_PROFILEBYID:
 			return { ...state, profile: payload }
+		case SHOWGETCAT:
+			console.log(payload, 'INI PAYLOAD NYA');
+			return { ...state, randomCards: payload }
+		case SET_RANDOMCARD:
+			return { ...state, randomCards: payload } 
 		default:
 			return state
 	}
