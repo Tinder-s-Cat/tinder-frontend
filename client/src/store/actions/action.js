@@ -1,7 +1,9 @@
-import { 
+import {
 	SET_PROFILEBYID,
+	SET_FRIENDS,
+	SET_CHAT_MESSAGE,
 	SHOWGETCAT,
-	SET_RANDOMCARD
+	SET_RANDOMCARD,
 } from './actionType'
 import axios from 'axios'
 
@@ -9,6 +11,56 @@ const BASE_URL = 'http://localhost:3000'
 
 export function setUserById(payload) {
 	return { type: SET_PROFILEBYID, payload: payload }
+}
+export function setFriends(payload) {
+	return { type: SET_FRIENDS, payload: payload }
+}
+export function setChatMessage(payload) {
+	return { type: SET_CHAT_MESSAGE, payload: payload }
+}
+
+export function addChatMessage(payload) {
+	return function (dispatch, getState) {
+		let msg = JSON.stringify(getState().chatMessage)
+		dispatch(setChatMessage([...JSON.parse(msg), payload]))
+	}
+}
+export function fetchChatMessage(payload) {
+	return function (dispatch, getState) {
+		axios({
+			method: 'GET',
+			url: `${BASE_URL}/chatroom/${payload.ChatRoomId}/${payload.isMatchId}`,
+			headers: {
+				access_token: localStorage.access_token,
+			},
+		})
+			.then(({ data }) => {
+				dispatch(setChatMessage(data))
+				console.log('<<<<<<<')
+			})
+			.catch((err) => {
+				console.log(err)
+			})
+	}
+}
+
+export function fetchFriendMatch(payload) {
+	return function (dispatch, getState) {
+		axios({
+			method: 'GET',
+			url: `${BASE_URL}/friend`,
+			headers: {
+				access_token: localStorage.access_token,
+			},
+		})
+			.then(({ data }) => {
+				console.log(`data`, data)
+				dispatch(setFriends(data))
+			})
+			.catch((err) => {
+				console.log(err, '<<<<fetchFriend')
+			})
+	}
 }
 export function setRandomCard(payload) {
 	return { type: SET_RANDOMCARD, payload: payload }
@@ -20,13 +72,13 @@ export function fetchUserById(payload) {
 			url: `${BASE_URL}/friend/${payload.userId}`,
 			headers: { access_token: localStorage.access_token },
 		})
-		.then(({ data }) => {
-			console.log(`data`, data)
-			dispatch(setUserById(data))
-		})
-		.catch((err) => {
-			console.log(`err`, err)
-		})
+			.then(({ data }) => {
+				console.log(`data`, data)
+				dispatch(setUserById(data))
+			})
+			.catch((err) => {
+				console.log(`err`, err)
+			})
 	}
 }
 export function postLike({ UserId, CatId }) {
@@ -37,16 +89,16 @@ export function postLike({ UserId, CatId }) {
 			headers: { access_token: localStorage.access_token },
 			data: {
 				UserId,
-				CatId
-			}
+				CatId,
+			},
 		})
-		.then(({ data }) => {
-			console.log(data, 'INI DATA LIKE')
-		})
-		.catch((err) => {
-			console.log(err);
-		})
-	} 
+			.then(({ data }) => {
+				console.log(data, 'INI DATA LIKE')
+			})
+			.catch((err) => {
+				console.log(err)
+			})
+	}
 }
 export function getCats() {
 	return function (dispatch, getState) {
@@ -55,17 +107,17 @@ export function getCats() {
 			url: BASE_URL + `/cat`,
 			headers: { access_token: localStorage.access_token },
 		})
-		.then(({ data }) => {
-			console.log(data, 'INI DATA NYA');
-			dispatch({ type: SHOWGETCAT, payload: data })
-		})
-		.catch((err) => {
-			console.log(err);
-		})
+			.then(({ data }) => {
+				console.log(data, 'INI DATA NYA')
+				dispatch({ type: SHOWGETCAT, payload: data })
+			})
+			.catch((err) => {
+				console.log(err)
+			})
 	}
 }
 export function skipCard() {
-	return function(dispatch, getState) {
+	return function (dispatch, getState) {
 		let cards = JSON.parse(JSON.stringify(getState().randomCards))
 		cards.shift()
 		dispatch(setRandomCard(cards))
