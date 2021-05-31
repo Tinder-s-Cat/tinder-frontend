@@ -1,12 +1,12 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-export default function MatchesCard({ props }) {
+export default function MatchesCard({ payload }) {
 	let history = useHistory()
 	function toUserProfile() {
-		history.push('/dashboard/user/1')
+		history.push(`/dashboard/user/${payload.UserId}`)
 	}
 	function toChatroom() {
-		history.push('/dashboard/chat/1asdxs')
+		history.push(`/dashboard/chat/${payload.id}/${payload.username}`)
 	}
 	return (
 		<div
@@ -18,7 +18,7 @@ export default function MatchesCard({ props }) {
 					<div className="w-12 h-12" onClick={() => toUserProfile()}>
 						<img
 							className="rounded-full z-50 object-fill w-full h-full cursor-pointer"
-							src="https://i.imgur.com/657wEgh.jpg"
+							src={payload.profilePicture}
 							alt="profile"
 						/>
 					</div>
@@ -29,7 +29,9 @@ export default function MatchesCard({ props }) {
 						toChatroom()
 					}}
 				>
-					<h1 className="text-left text-black font-sm text-lg">Ferguso</h1>
+					<h1 className="text-left text-black font-sm text-lg">
+						{payload.username}
+					</h1>
 				</div>
 			</div>
 		</div>

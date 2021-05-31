@@ -38,14 +38,16 @@ export default function UserProfileCard() {
 						</div>
 						<div className="flex flex-col md:flex-row w-2/3 mt-5 self-start">
 							<h1 className="text-2xl text-center">{userProfile.username}</h1>
-							<button
-								className="bg-gray-300 py-2 px-4 mx-4"
-								onClick={() => {
-									setShowModal(true)
-								}}
-							>
-								Add Cat
-							</button>
+							{userId === localStorage.id && (
+								<button
+									className="bg-gray-300 py-2 px-4 mx-4"
+									onClick={() => {
+										setShowModal(true)
+									}}
+								>
+									Add Cat
+								</button>
+							)}
 						</div>
 					</div>
 					<div className="flex justify-center">
@@ -66,16 +68,16 @@ export default function UserProfileCard() {
 				</>
 			) : null}
 
-			<div class="flex items-end justify-end fixed bottom-0 right-0 mb-4 mr-4 z-10">
+			<div className="flex items-end justify-end fixed bottom-0 right-0 mb-4 mr-4 z-10">
 				<div>
 					<button
 						title="Buy me a beer"
 						onClick={() => changePage()}
 						target="_blank"
-						class="block w-16 h-16 rounded-full transition-all shadow hover:shadow-lg transform hover:scale-110 hover:rotate-12"
+						className="block w-16 h-16 rounded-full transition-all shadow hover:shadow-lg transform hover:scale-110 hover:rotate-12"
 					>
 						<img
-							class="object-cover object-center w-full h-full rounded-full"
+							className="object-cover object-center w-full h-full rounded-full"
 							src={Logo}
 						/>
 					</button>

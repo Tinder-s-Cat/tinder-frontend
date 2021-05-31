@@ -1,13 +1,51 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import UserProfile from '../components/UserProfileCard'
 import MatchesCard from '../components/MatchesCard'
 import SwapCard from '../components/SwapCard'
 import ChatRoom from '../components/ChatRoom'
 import { useHistory, Switch, Route, useRouteMatch } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchFriendMatch, addChatMessage } from '../store/actions/action'
+import socket from '../api/socket'
+import Swal from 'sweetalert2'
 
 export default function Dashboard() {
 	let { path } = useRouteMatch()
+	let friendMatch = useSelector((state) => state.listFriends)
+	const dispatch = useDispatch()
 	let history = useHistory()
+
+	useEffect(() => {
+		socket.on('receive-message', (data) => {
+			console.log('chat masuk', data)
+			dispatch(addChatMessage(data))
+		})
+
+		socket.on('welcome', (data) => {
+			const Toast = Swal.mixin({
+				toast: true,
+				position: 'top-end',
+				showConfirmButton: false,
+				timer: 3000,
+				timerProgressBar: true,
+				didOpen: (toast) => {
+					toast.addEventListener('mouseenter', Swal.stopTimer)
+					toast.addEventListener('mouseleave', Swal.resumeTimer)
+				},
+			})
+
+			Toast.fire({
+				icon: 'success',
+				title: data,
+			})
+		})
+
+		dispatch(fetchFriendMatch())
+		return () => {
+			socket.close()
+		}
+	}, [])
+
 	function handleLogout() {
 		localStorage.clear()
 		history.push('/')
@@ -60,11 +98,8 @@ export default function Dashboard() {
 					</div>
 				</div>
 				<div className="h-5/6 w-full overflow-y-auto">
-					<MatchesCard />
-					<MatchesCard />
-					<MatchesCard />
-					<MatchesCard />
-					<MatchesCard />
+					{friendMatch.length > 0 &&
+						friendMatch.map((el) => <MatchesCard key={el.id} payload={el} />)}
 				</div>
 			</section>
 			{/* Main Dashboard isinya nested router */}
@@ -76,7 +111,7 @@ export default function Dashboard() {
 					<Route path={`${path}/user/:userId`}>
 						<UserProfile />
 					</Route>
-					<Route path={`${path}/chat/:chatroomId`}>
+					<Route path={`${path}/chat/:chatroomId/:username`}>
 						<ChatRoom />
 					</Route>
 				</Switch>
