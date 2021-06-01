@@ -26,13 +26,13 @@ export default function CatCard({ payload }) {
 	function handleDelete() {
 		Swal.fire({
 			title: 'Are you sure?',
-			text: "You will not be able to return this card!",
+			text: 'You will not be able to return this card!',
 			icon: 'warning',
 			showCancelButton: true,
 			confirmButtonColor: '#3085d6',
 			cancelButtonColor: '#d33',
-			confirmButtonText: 'delete'
-		  }).then((result) => {
+			confirmButtonText: 'delete',
+		}).then((result) => {
 			if (result.isConfirmed) {
 				dispatch(deleteCat({ id: payload.id, userId }))
 				Swal.fire(
@@ -41,61 +41,105 @@ export default function CatCard({ payload }) {
 					'success'
 				)
 			}
-		  })
-		if (userId === localStorage.id) {
-			dispatch(deleteCat({ id: payload.id, userId }))
-		}
+		})
+		// if (userId === localStorage.id) {
+		// 	dispatch(deleteCat({ id: payload.id, userId }))
+		// }
 	}
 
 	return (
 		<>
-			<div className="group z-1 transition duration-500 ease-in-out transform hover:scale-110 w-1/2 md:w-1/3 h-2/3 p-2 relative">
-				{payload.status ? (
-					<button
-						onClick={(event) => {
-							event.preventDefault()
-							handlePatchStatus()
-						}}
-						className="absolute bg-green-500 hover:bg-green-600 px-2 py-1 top-5 left-4 text-sm text-white font-semibold cursor-pointer"
-					>
-						active
-					</button>
-				) : (
-					<button
-						onClick={(event) => {
-							event.preventDefault()
-							handlePatchStatus()
-						}}
-						className="absolute bg-yellow-500 hover:bg-yellow-600 px-2 py-1 top-5 left-4 text-sm text-white font-semibold cursor-pointer"
-					>
-						inactive
-					</button>
-				)}
-				{userId === localStorage.id && (
-					<div className="absolute right-4 top-3 flex flex-col ">
+			<div className="w-80 h-5/6 group transition duration-500 ease-in-out transform hover:scale-110 hover:flex-grow shadow-xl">
+				<div className="relative w-full h-full">
+					<img
+						className="object-cover h-full w-full rounded-2xl"
+						src={payload.profilePicture}
+						alt=""
+					/>
+					{payload.status ? (
 						<button
-							onClick={() => {
-								setShowModal(true)
+							onClick={(event) => {
+								event.preventDefault()
+								handlePatchStatus()
 							}}
-							className="text-sm bg-white my-1 hover:bg-green-600 px-2 py-1"
+							className="absolute bg-green-500 hover:bg-green-600 px-2 py-1 top-5 left-4 text-sm text-white font-semibold cursor-pointer"
 						>
-							Edit
+							active
 						</button>
+					) : (
 						<button
-							onClick={() => {
-								handleDelete()
+							onClick={(event) => {
+								event.preventDefault()
+								handlePatchStatus()
 							}}
-							className="text-sm bg-red-600 my-1 hover:bg-red-700 px-2 py-1"
+							className="absolute bg-yellow-500 hover:bg-yellow-600 px-2 py-1 top-5 left-4 text-sm text-white font-semibold cursor-pointer"
 						>
-							Delete
+							inactive
 						</button>
+					)}
+					{userId === localStorage.id && (
+						<div className="absolute right-4 top-3 flex flex-row space-x-2">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								className="h-8 w-8 text-yellow-200 bg-black bg-opacity-70 hover:text-yellow-600"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke="currentColor"
+								onClick={() => {
+									setShowModal(true)
+								}}
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+								/>
+							</svg>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="h-8 w-8 text-red-400 bg-black bg-opacity-70 8ove8:text-red-600"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke="currentColor"
+								onClick={() => {
+									handleDelete()
+								}}
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+								/>
+							</svg>
+						</div>
+					)}
+					<div className="absolute opacity-0 py-2 px-5 group-hover:opacity-100 w-full left-0 right-0 bottom-0 h-2/6 bg-white bg-opacity-75 rounded-xl ">
+						<div className="w-full h-full flex flex-col justify-start overflow-y-auto items-start">
+							<div className="">
+								<h1 className="text-left font-bold capitalize text-xl">
+									{payload.name} ({payload.race})
+								</h1>
+							</div>
+							<div>
+								<h1 className="text-left font-medium capitalize text-lg">
+									{payload.gender}, {payload.age}yo
+								</h1>
+							</div>
+							<div className="flex flex-row flex-wrap space-x-1">
+								<div>
+									<h1 className="text-left font-medium text-medium">
+										Description:
+									</h1>
+								</div>
+							</div>
+							<div className="px-1">
+								<h1 className="text-left">{payload.description}</h1>
+							</div>
+						</div>
 					</div>
-				)}
-				<img
-					className="object-fit w-full h-full"
-					src={payload.profilePicture}
-					alt=""
-				/>
+				</div>
 			</div>
 			{showModal ? (
 				<EditForm

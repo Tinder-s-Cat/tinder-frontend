@@ -107,7 +107,7 @@ export default function Dashboard() {
 				</div>
 			</section>
 			{/* Main Dashboard isinya nested router */}
-			<section className="w-9/12 h-full bg-yellow-500 flex flex-row items-center justify-center">
+			<section className="w-9/12 h-full bg-yellow-500 flex flex-row items-center justify-center drop-shadow-2xl">
 				<Switch>
 					<Route exact path={path}>
 						<SwapCard />

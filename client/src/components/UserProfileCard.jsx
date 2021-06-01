@@ -6,7 +6,7 @@ import Logo from '../assets/animasi-bergerak.gif'
 import { useHistory, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchUserById } from '../store/actions/action'
-
+import CatUpload from '../assets/iconfinder_cat.png'
 export default function UserProfileCard() {
 	let { userId } = useParams()
 	let userProfile = useSelector((state) => state.profile)
@@ -25,39 +25,56 @@ export default function UserProfileCard() {
 	return (
 		<>
 			{userProfile.id !== undefined && (
-				<div className="h-5/6 md:w-4/6 shadow-2xl bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 overflow-y-auto ">
-					<div className="w-full h-1/3 px-24 py-10 flex items-center">
-						<div className="w-3/12 m-5 flex justify-end">
-							<div className="w-32 h-32">
-								<img
-									className="rounded-full object-fill w-full h-full"
-									src={userProfile.profilePicture}
-									alt="profile"
-								/>
+				<div className="h-5/6 md:w-5/6 shadow-2xl flex flex-row flex-nowrap overflow-x-auto rounded-2xl">
+					<div className="w-1/3 h-full flex flex-col p-5 justify-center items-center background-cat  rounded-l-2xl">
+						<div className=" rounded-3xl bg-gray-50 bg-opacity-80 py-5 flex flex-col items-center w-full">
+							<div className="w-full flex justify-center">
+								<div className=" w-36 h-36">
+									<img
+										className="rounded-full object-fill  border-yellow-300 border-4 w-full h-full"
+										src={userProfile.profilePicture}
+										alt="profile"
+									/>
+								</div>
 							</div>
-						</div>
-						<div className="flex flex-col md:flex-row w-2/3 mt-5 self-start">
-							<h1 className="text-2xl text-center">{userProfile.username}</h1>
-							{userId === localStorage.id && (
+							<div className="">
+								<h1 className="text-medium overflow-auto text-center">
+									{userProfile.username}
+								</h1>
+							</div>
+							<div className="">
+								<h1 className="text-medium overflow-auto text-center">
+									{userProfile.location}
+								</h1>
+							</div>
+							<div className="bg-yellow-400 hover:bg-yellow-600 my-2 py-2 px-4 rounded-lg">
 								<button
-									className="bg-gray-300 py-2 px-4 mx-4"
 									onClick={() => {
 										setShowModal(true)
 									}}
 								>
-									Add Cat
+									Add cat
 								</button>
-							)}
+							</div>
 						</div>
 					</div>
-					<div className="flex justify-center">
-						<div className="w-5/6 border-black border-b-2 "></div>
-					</div>
-					<div className="w-full h-2/3 p-12 flex justify-start flex-wrap">
+
+					<div className="w-2/3 h-full  bg-white flex p-5">
 						{userProfile.Cats.length > 0 ? (
-							userProfile.Cats.map((el) => <CatCard payload={el} />)
+							<div class="flex overflow-x-scroll h-full hide-scroll-bar">
+								<div class="flex flex-nowrap items-center space-x-6">
+									{userProfile.Cats.map((el) => (
+										<CatCard payload={el} />
+									))}
+								</div>
+							</div>
 						) : (
-							<div className="self-center w-full">No data Cats Found</div>
+							<div className=" flex flex-col justify-center items-center self-center text-center w-full">
+								<img src={CatUpload} className="w-3/6" alt="cat" />
+								<h1 className="text-yellow-600 p-2 bg-yellow-200 rounded-xl">
+									You have't upload your cat.
+								</h1>
+							</div>
 						)}
 					</div>
 				</div>

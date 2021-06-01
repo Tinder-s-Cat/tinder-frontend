@@ -6,7 +6,7 @@ import {
 	SET_RANDOMCARD,
 } from './actionType'
 import axios from 'axios'
-
+import Swal from 'sweetalert2'
 const BASE_URL = 'http://localhost:3000'
 
 export function setUserById(payload) {
@@ -135,6 +135,13 @@ export function addCat({ payload, userId }) {
 			.then(({ data }) => {
 				// console.log('INI DATA>>>>', data)
 				dispatch(fetchUserById({ userId }))
+				Swal.fire({
+					position: 'center',
+					icon: 'success',
+					title: 'Successfully Added Your Cats',
+					showConfirmButton: false,
+					timer: 1500,
+				})
 			})
 			.catch((err) => {
 				console.log(`err`, err)
@@ -166,6 +173,22 @@ export function editCat({ payload, userId, id }) {
 			.then(({ data }) => {
 				// console.log('INI HASIL EDIT>>>>', data)
 				dispatch(fetchUserById({ userId }))
+				const Toast = Swal.mixin({
+					toast: true,
+					position: 'top-end',
+					showConfirmButton: false,
+					timer: 3000,
+					timerProgressBar: true,
+					didOpen: (toast) => {
+						toast.addEventListener('mouseenter', Swal.stopTimer)
+						toast.addEventListener('mouseleave', Swal.resumeTimer)
+					},
+				})
+
+				Toast.fire({
+					icon: 'success',
+					title: 'Edit success!',
+				})
 			})
 			.catch((err) => {
 				console.log(`err`, err)

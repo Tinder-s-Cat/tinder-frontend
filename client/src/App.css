@@ -35,7 +35,6 @@
 	to {
 		transform: rotate(360deg);
 	}
-
 }
 
 .background-cat {
@@ -44,3 +43,10 @@
 	background-size: cover;
 }
 
+.hide-scroll-bar {
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+.hide-scroll-bar::-webkit-scrollbar {
+	display: none;
+}
