@@ -70,6 +70,9 @@ export default function UserProfileCard() {
 
 			<div className="flex items-end justify-end fixed bottom-0 right-0 mb-4 mr-4 z-10">
 				<div>
+				<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+				</svg>
 					<button
 						title="find a partner"
 						onClick={() => changePage()}
