@@ -61,10 +61,10 @@ export default function UserProfileCard() {
 
 					<div className="w-2/3 h-full  bg-white flex p-5">
 						{userProfile.Cats.length > 0 ? (
-							<div class="flex overflow-x-scroll h-full hide-scroll-bar">
-								<div class="flex flex-nowrap items-center space-x-6">
+							<div className="flex overflow-x-scroll h-full hide-scroll-bar">
+								<div className="flex flex-nowrap items-center space-x-6">
 									{userProfile.Cats.map((el) => (
-										<CatCard payload={el} />
+										<CatCard key={el.id} payload={el} />
 									))}
 								</div>
 							</div>
@@ -87,9 +87,20 @@ export default function UserProfileCard() {
 
 			<div className="flex items-end justify-end fixed bottom-0 right-0 mb-4 mr-4 z-10">
 				<div>
-				<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-				</svg>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						className="h-6 w-6 animate-bounce"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+					>
+						<path
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							strokeWidth="2"
+							d="M19 14l-7 7m0 0l-7-7m7 7V3"
+						/>
+					</svg>
 					<button
 						title="find a partner"
 						onClick={() => changePage()}

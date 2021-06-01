@@ -9,11 +9,11 @@ export default function AddForm({ setShowModal }) {
 		name: '',
 		age: '',
 		race: '',
-		gender: false,
-		profilePicture: '',
+		gender: 'male',
 		status: false,
 		description: '',
 	})
+	const fileInput = React.createRef()
 	let { userId } = useParams()
 	const dispatch = useDispatch()
 	function handleAdd() {
@@ -23,10 +23,20 @@ export default function AddForm({ setShowModal }) {
 			race: cat.race,
 			status: cat.status,
 			gender: cat.gender,
-			profilePicture: cat.profilePicture,
 			description: cat.description,
 		}
-		console.log('MASUK 2', payload)
+
+		const formData = new FormData()
+		console.log(`fileInput.current.files`, fileInput.current.files[0])
+		formData.append('profilePicture', fileInput.current.files[0])
+		formData.append('name', payload.name)
+		formData.append('age', payload.age)
+		formData.append('description', payload.description)
+		formData.append('race', payload.race)
+		formData.append('status', payload.status)
+		formData.append('gender', payload.gender)
+
+		// console.log('MASUK 2', payload.profilePicture)
 		dispatch(addCat({ payload, userId }))
 
 		// setCat('')
@@ -51,9 +61,10 @@ export default function AddForm({ setShowModal }) {
 	function addGender(event) {
 		setCat({ ...cat, gender: event.target.value })
 	}
-	function addProfilePicture(event) {
-		setCat({ ...cat, profilePicture: event.target.value })
-	}
+	// function addProfilePicture(event) {
+	// 	console.log(event.target.files[0], 'asacs')
+	// 	// setCat({ ...cat, profilePicture: event.target.files })
+	// }
 
 	return (
 		<>
@@ -117,7 +128,6 @@ export default function AddForm({ setShowModal }) {
 									<label className="block text-gray-600" htmlFor="">
 										Gender:
 									</label>
-
 									<select
 										name="gender"
 										id=""
@@ -140,10 +150,11 @@ export default function AddForm({ setShowModal }) {
 										ProfilePicture:
 									</label>
 									<input
-										type="text"
+										id="file"
+										type="file"
+										name="file"
 										className="bg-gray-50 border-2 border-gray-200 rounded-lg p-2 w-full"
-										value={cat.profilePicture}
-										onChange={addProfilePicture}
+										ref={fileInput}
 									/>
 								</div>
 								<div>

@@ -126,11 +126,29 @@ export function skipCard() {
 
 export function addCat({ payload, userId }) {
 	return function (dispatch, getState) {
-		axios({
+		// axios({
+		// 	method: 'POST',
+		// 	url: `${BASE_URL}/cat/lengkap`,
+		// 	headers: {
+		// 		access_token: localStorage.access_token,
+		// 		// 'content-type': 'multipart/form-data',
+		// 		'Content-type': 'application/json',
+		// 		'Content-Type': 'multipart/form-data',
+		// 	},
+		// 	data: payload,
+		// })
+		// axios
+		// 	.post(`${BASE_URL}/cat/lengkap`, payload, {
+		// 		headers: {
+		// 			access_token: localStorage.access_token,
+		// 		},
+		// 	})
+		fetch(`${BASE_URL}/cat/lengkap`, {
 			method: 'POST',
-			url: `${BASE_URL}/cat`,
-			headers: { access_token: localStorage.access_token },
-			data: payload,
+			body: payload,
+			headers: {
+				access_token: localStorage.access_token,
+			},
 		})
 			.then(({ data }) => {
 				// console.log('INI DATA>>>>', data)
