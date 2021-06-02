@@ -86,7 +86,7 @@ export default function UserProfileCard() {
 							<div className=" flex flex-col justify-center items-center self-center text-center w-full">
 								<img src={CatUpload} className="w-3/6" alt="cat" />
 								<h1 className="text-yellow-600 p-2 bg-yellow-200 rounded-xl">
-									You have't upload your cat.
+									you haven't upload any cats
 								</h1>
 							</div>
 						)}

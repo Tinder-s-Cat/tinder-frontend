@@ -10,7 +10,7 @@ export default function Cards(cat) {
 			>
 				<div className="absolute opacity-0 py-2 px-5 group-hover:opacity-100 w-full left-0 right-0 bottom-0 h-2/6 bg-white bg-opacity-75 rounded-xl">
 					<p className="card-name">
-						{cat.cat.name}({cat.cat.race})
+						{cat.cat.name} ({cat.cat.race})
 					</p>
 					<span className="card-gender">{cat.cat.gender},</span>
 					<span className="card-age">{cat.cat.age} months</span>
