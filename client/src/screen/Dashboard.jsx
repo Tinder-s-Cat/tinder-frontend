@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchFriendMatch, addChatMessage } from '../store/actions/action'
 import socket from '../api/socket'
 import Swal from 'sweetalert2'
+import Logo from '../assets/animasi-bergerak.gif'
 
 export default function Dashboard() {
 	let { path } = useRouteMatch()
@@ -63,7 +64,7 @@ export default function Dashboard() {
 					<div className="h-1/2 bg-yellow-400">
 						<div className="w-full h-full px-5">
 							<div className="h-full flex justify-start items-center">
-								<div className="w-3/12">
+								<div className="w-5/6">
 									<div
 										className="w-12 h-12"
 										onClick={() => {
@@ -78,7 +79,7 @@ export default function Dashboard() {
 									</div>
 								</div>
 								<div className="w-6/12">
-									<h1 className="text-left text-white font-semibold text-lg">
+									<h1 className="text-center -ml-60 text-white font-semibold text-lg">
 										{localStorage.username}
 									</h1>
 								</div>
@@ -102,8 +103,15 @@ export default function Dashboard() {
 					</div>
 				</div>
 				<div className="h-5/6 w-full overflow-y-auto">
-					{friendMatch.length > 0 &&
-						friendMatch.map((el) => <MatchesCard key={el.id} payload={el} />)}
+					{
+					friendMatch.length === 0 ?
+					<div className="flex flex-col justify-center items-center self-center text-center w-full pt-16">
+						<img src={Logo} alt="no data" />
+						<h1 className="text-yellow-600 p-2 bg-yellow-200 rounded-xl">Oops, you no more have friends or matches</h1>
+					</div>
+					:
+						friendMatch.map((el) => <MatchesCard key={el.id} payload={el} />)
+					}
 				</div>
 			</section>
 			{/* Main Dashboard isinya nested router */}

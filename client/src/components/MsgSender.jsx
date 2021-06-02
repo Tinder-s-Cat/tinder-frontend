@@ -1,4 +1,5 @@
 import React from 'react'
+import MatchesCard from './MatchesCard'
 
 export default function MsgSender({ payload, profilePicture }) {
 	return (
