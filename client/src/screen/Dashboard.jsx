@@ -64,7 +64,7 @@ export default function Dashboard() {
 					<div className="h-1/2 bg-yellow-400">
 						<div className="w-full h-full px-5">
 							<div className="h-full flex justify-start items-center">
-								<div className="w-5/6">
+								<div className="w-1/3">
 									<div
 										className="w-12 h-12"
 										onClick={() => {
@@ -78,12 +78,12 @@ export default function Dashboard() {
 										/>
 									</div>
 								</div>
-								<div className="w-6/12">
-									<h1 className="text-center -ml-60 text-white font-semibold text-lg">
+								<div className="w-1/4">
+									<h1 className="text-left text-white font-semibold text-lg">
 										{localStorage.username}
 									</h1>
 								</div>
-								<div className="w-3/12">
+								<div className="w-3/12 ml-8">
 									<button
 										onClick={() => {
 											handleLogout()
