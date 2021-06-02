@@ -125,33 +125,19 @@ export function skipCard() {
 }
 
 export function addCat({ payload, userId }) {
+	console.log(payload.get('profilePicture'), 'payload')
+
 	return function (dispatch, getState) {
-		// axios({
-		// 	method: 'POST',
-		// 	url: `${BASE_URL}/cat/lengkap`,
-		// 	headers: {
-		// 		access_token: localStorage.access_token,
-		// 		// 'content-type': 'multipart/form-data',
-		// 		'Content-type': 'application/json',
-		// 		'Content-Type': 'multipart/form-data',
-		// 	},
-		// 	data: payload,
-		// })
-		// axios
-		// 	.post(`${BASE_URL}/cat/lengkap`, payload, {
-		// 		headers: {
-		// 			access_token: localStorage.access_token,
-		// 		},
-		// 	})
-		fetch(`${BASE_URL}/cat/lengkap`, {
+		axios({
 			method: 'POST',
-			body: payload,
+			url: `${BASE_URL}/cat`,
 			headers: {
 				access_token: localStorage.access_token,
 			},
+			data: payload,
 		})
-			.then(({ data }) => {
-				// console.log('INI DATA>>>>', data)
+			.then((response) => {
+				console.log('INI DATA>>>>', response)
 				dispatch(fetchUserById({ userId }))
 				Swal.fire({
 					position: 'center',

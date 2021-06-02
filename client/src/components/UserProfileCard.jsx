@@ -38,7 +38,7 @@ export default function UserProfileCard() {
 								</div>
 							</div>
 							<div className="">
-								<h1 className="text-medium overflow-auto text-center">
+								<h1 className="text-xl font-medium overflow-auto text-center">
 									{userProfile.username}
 								</h1>
 							</div>
@@ -47,15 +47,17 @@ export default function UserProfileCard() {
 									{userProfile.location}
 								</h1>
 							</div>
-							<div className="bg-yellow-400 hover:bg-yellow-600 my-2 py-2 px-4 rounded-lg">
-								<button
-									onClick={() => {
-										setShowModal(true)
-									}}
-								>
-									Add cat
-								</button>
-							</div>
+							{Number(userId) === Number(localStorage.id) && (
+								<div className="bg-yellow-400 hover:bg-yellow-600 my-2 py-2 px-4 rounded-lg">
+									<button
+										onClick={() => {
+											setShowModal(true)
+										}}
+									>
+										Add cat
+									</button>
+								</div>
+							)}
 						</div>
 					</div>
 
@@ -105,13 +107,18 @@ export default function UserProfileCard() {
 						title="find a partner"
 						onClick={() => changePage()}
 						target="_blank"
-						className="block w-16 h-16 rounded-full transition-all shadow hover:shadow-lg transform hover:scale-110 hover:rotate-12"
+						className="block w-20 h-20 rounded-full transition-all shadow hover:shadow-lg transform hover:scale-110 hover:rotate-12"
 					>
 						<img
 							className="object-cover object-center w-full h-full rounded-full"
 							src={Logo}
 						/>
 					</button>
+					<div>
+						<h1 className="font-semibold font-mono text-yellow-900">
+							Discover
+						</h1>
+					</div>
 				</div>
 			</div>
 		</>

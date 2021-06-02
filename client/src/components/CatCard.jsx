@@ -81,7 +81,7 @@ export default function CatCard({ payload }) {
 						<div className="absolute right-4 top-3 flex flex-row space-x-2">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
-								className="h-8 w-8 text-yellow-200 bg-black bg-opacity-70 hover:text-yellow-600"
+								className="h-8 w-8 text-yellow-200 bg-black bg-opacity-70 hover:text-yellow-600 cursor-pointer"
 								fill="none"
 								viewBox="0 0 24 24"
 								stroke="currentColor"
@@ -98,7 +98,7 @@ export default function CatCard({ payload }) {
 							</svg>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
-								className="h-8 w-8 text-red-400 bg-black bg-opacity-70 8ove8:text-red-600"
+								className="h-8 w-8 text-red-400 hover:text-red-600 bg-black cursor-pointer bg-opacity-70 8ove8:text-red-600"
 								fill="none"
 								viewBox="0 0 24 24"
 								stroke="currentColor"

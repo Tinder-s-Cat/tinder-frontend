@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { addCat } from '../store/actions/action'
+import { addCat, fetchUserById } from '../store/actions/action'
 import Swal from 'sweetalert2'
+import axios from 'axios'
 
 export default function AddForm({ setShowModal }) {
 	let [cat, setCat] = useState({
@@ -27,7 +28,6 @@ export default function AddForm({ setShowModal }) {
 		}
 
 		const formData = new FormData()
-		console.log(`fileInput.current.files`, fileInput.current.files[0])
 		formData.append('profilePicture', fileInput.current.files[0])
 		formData.append('name', payload.name)
 		formData.append('age', payload.age)
@@ -35,11 +35,36 @@ export default function AddForm({ setShowModal }) {
 		formData.append('race', payload.race)
 		formData.append('status', payload.status)
 		formData.append('gender', payload.gender)
+		axios({
+			method: 'POST',
+			url: `http://localhost:3000/cat/lengkap`,
+			headers: {
+				access_token: localStorage.access_token,
+			},
+			data: formData,
+		})
+			.then((response) => {
+				console.log('INI DATA>>>>', response)
+				dispatch(fetchUserById({ userId }))
+				Swal.fire({
+					position: 'center',
+					icon: 'success',
+					title: 'Successfully Added Your Cats',
+					showConfirmButton: false,
+					timer: 1500,
+				})
+			})
+			.catch((err) => {
+				Swal.fire({
+					position: 'center',
+					icon: 'error',
+					title: 'Something Wrong happened',
+					showConfirmButton: false,
+					timer: 1000,
+				})
+				console.log(`err`, err)
+			})
 
-		// console.log('MASUK 2', payload.profilePicture)
-		dispatch(addCat({ payload, userId }))
-
-		// setCat('')
 		setShowModal()
 	}
 	function addName(event) {
