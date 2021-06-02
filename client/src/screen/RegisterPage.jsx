@@ -30,6 +30,8 @@ export default function RegisterPage() {
 				email: newUser.email,
 				password: newUser.password,
 				profilePicture: newUser.profilePicture,
+				lat: newUser.lat,
+				lng: newUser.lng,
 				location: newUser.location,
 			},
 		})
@@ -83,16 +85,21 @@ export default function RegisterPage() {
 				url: `https://api.opencagedata.com/geocode/v1/json?q=${coor.coords.latitude}+${coor.coords.longitude}&key=6bfeaaf22afb419d95cfda8e999af2a6`,
 			})
 				.then(({ data }) => {
+					console.log(data, 'INI DATA');
 					const newLocation = data.results[0].components.city
+					const lat = data.results[0].geometry.lat
+					const lng = data.results[0].geometry.lng
 					setNewUser({
 						...newUser,
-						location: newLocation,
-					})
+						location: newLocation, lat: lat, lng: lng })
+					// console.log(newUser.location, 'INI LOKASI');
 				})
 				.catch((err) => {
 					console.log(err)
 				})
 		})
+
+			
 	}
 
 	return (
@@ -172,22 +179,52 @@ export default function RegisterPage() {
 						</div>
 
 						<div className="mt-4">
-							<label className="block text-gray-700">Location: </label>
+						<label className="block text-gray-700">Location: </label>
 							<input
 								type="location"
+								disabled
+								name="location"
+								value={newUser.lat}
+								onChange={handleChange}
+								placeholder="Set Latitude"
+								className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500
+                    focus:bg-white focus:outline-none"
+							/>
+							
+						</div>
+
+						<div className="mt-4">
+							
+							<input
+								type="location"
+								disabled
+								name="location"
+								value={newUser.lng}
+								onChange={handleChange}
+								placeholder="Set Longitude"
+								className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500
+                    focus:bg-white focus:outline-none"
+							/>
+							
+						</div>
+
+						<div className="mt-4">
+							<input
+								type="location"
+								disabled
 								name="location"
 								value={newUser.location}
 								onChange={handleChange}
-								placeholder="Enter Your Location"
+								placeholder="Set Location"
 								className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500
                     focus:bg-white focus:outline-none"
 							/>
 							<button
 								type="button"
 								onClick={getLocation}
-								className="flex-shrink-0 w-auto bg-purple-500 hover:bg-purple-700 rounded-lg shadow-xl bottom-1/2 font-medium text-white px-4 py-2"
+								className=" mt-2 flex-shrink-0 w-auto bg-purple-500 hover:bg-purple-700 rounded-lg shadow-xl bottom-1/2 font-medium text-white px-4 py-2"
 							>
-								SET
+								SET LOCATION
 							</button>
 						</div>
 
