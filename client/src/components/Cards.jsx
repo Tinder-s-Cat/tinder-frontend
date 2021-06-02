@@ -3,7 +3,7 @@ import './Component.css'
 
 export default function Cards(cat) {
 	return (
-		<div className="w-80 h-5/6 group transition duration-500 ease-in-out transform hover:scale-110 hover:flex-grow shadow-xl -ml-60">
+		<div className="w-full h-5/6 group transition duration-500 ease-in-out transform hover:scale-110 hover:flex-grow shadow-xl">
 			<div
 				className="card"
 				style={{ backgroundImage: `url(${cat.cat.profilePicture})` }}

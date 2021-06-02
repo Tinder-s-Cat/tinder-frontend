@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getCats, postLike, skipCard } from '../store/actions/action'
 import './Component.css'
@@ -7,14 +7,15 @@ import Cards from './Cards'
 
 export default function SwapCard() {
 	const cats = useSelector((state) => state.randomCards)
+	const [genderState, setGenderState] = useState('')
 	const dispatch = useDispatch()
 
 	useEffect(() => {
-		dispatch(getCats())
-	}, [])
+		dispatch(getCats(genderState))
+	}, [genderState])
 
 	const handleRefresh = () => {
-		dispatch(getCats())
+		dispatch(getCats(genderState))
 	}
 
 	const handleLike = () => {
@@ -30,9 +31,43 @@ export default function SwapCard() {
 
 	return (
 		<>
-			<div className="tinderCards_cardContainer">
+			<div className="group absolute left-10 top-5 cursor-pointer">
+				<div className="w-full h-full relative">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="h-12 w-12 rounded-full "
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
+						/>
+					</svg>
+					<div className="opacity-0 group-hover:opacity-100 absolute ml-2 right-0 left-full top-1/4">
+						<h1 className="text-semibold font-mono text-xl">Gender</h1>
+					</div>
+					<select
+						className="opacity-0 absolute group-hover:opacity-100 px-4 py-2 bg-gray-400 bg-opacity-75 text-white rounded-lg"
+						name="gender"
+						id="gender"
+						value={genderState}
+						onChange={(e) => {
+							setGenderState(e.target.value)
+						}}
+					>
+						<option value="">All</option>
+						<option value="male">Male</option>
+						<option value="female">Female</option>
+					</select>
+				</div>
+			</div>
+			<div className="tinderCards_cardContainer pb-20 pl">
 				{cats.length === 0 ? (
-					<div className="flex flex-col justify-center items-center self-center text-center w-full pt-16">
+					<div className="">
 						<img src={Logo} alt="no data" />
 						<h1 className="text-gray-500 p-2 bg-gray-200 rounded-xl">
 							Oops, no more cats to see.

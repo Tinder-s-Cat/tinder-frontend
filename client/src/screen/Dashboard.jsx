@@ -23,6 +23,11 @@ export default function Dashboard() {
 			dispatch(addChatMessage(data))
 		})
 
+		socket.on('refetch-receive', (data) => {
+			console.log('fetching friend', data)
+			dispatch(fetchFriendMatch())
+		})
+
 		socket.on('welcome', (data) => {
 			const Toast = Swal.mixin({
 				toast: true,
@@ -116,7 +121,10 @@ export default function Dashboard() {
 				</div>
 			</section>
 			{/* Main Dashboard isinya nested router */}
-			<section className="w-10/12 h-full bg-yellow-500 flex flex-row items-center justify-center drop-shadow-2xl">
+			<section
+				className=" h-full bg-yellow-500 flex flex-row items-center justify-center drop-shadow-2xl relative"
+				style={{ width: '80%' }}
+			>
 				<Switch>
 					<Route exact path={path}>
 						<SwapCard />

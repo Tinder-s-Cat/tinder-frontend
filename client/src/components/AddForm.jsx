@@ -134,7 +134,7 @@ export default function AddForm({ setShowModal }) {
 										className="bg-gray-50 border-2 border-gray-200 rounded-lg p-2 w-full"
 										value={cat.age}
 										onChange={addAge}
-										placeholder="Age in Years"
+										placeholder="Age in months"
 									/>
 								</div>
 								<div>
