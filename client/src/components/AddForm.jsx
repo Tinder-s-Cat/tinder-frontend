@@ -188,6 +188,7 @@ export default function AddForm({ setShowModal }) {
 									</label>
 									<textarea
 										type="text"
+										maxLength="10"
 										className="bg-gray-50 border-2 border-gray-200 rounded-lg p-2 w-full"
 										value={cat.description}
 										onChange={addDescription}

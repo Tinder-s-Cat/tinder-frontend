@@ -76,7 +76,7 @@ export default function LoginPage() {
 				>
 					<div className="w-full h-100">
 						<h1 className="text-xl md:text-2xl font-bold leading-tight mt-12">
-							Log in to your account
+							Log In to Your Account
 						</h1>
 
 						<form
