@@ -38,7 +38,7 @@ function SwapCard() {
 				cats.length === 0 ?
 				<div className="flex flex-col justify-center items-center self-center text-center w-full pt-16">
 					<img src={Logo} alt="no data" />
-					<h1 className="text-gray-500 p-2 bg-gray-200 rounded-xl">You haven't friends or Matches</h1>
+					<h1 className="text-gray-500 p-2 bg-gray-200 rounded-xl">Oops, no more cats to see.</h1>
 				</div>
 				:
 					<Cards cat={cats[0]} />

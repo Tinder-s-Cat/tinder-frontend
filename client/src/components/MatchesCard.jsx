@@ -10,7 +10,7 @@ export default function MatchesCard({ payload }) {
 	}
 	return (
 		<div
-			className="w-full border-gray-100 border-b-2 px-8 z-0 hover:bg-gray-100"
+			className="w-full border-gray-100 border-b-2 px-5 z-0 hover:bg-gray-100"
 			style={{ height: '12%' }}
 		>
 			
@@ -24,7 +24,7 @@ export default function MatchesCard({ payload }) {
 						/>
 					</div>
 				</div>
-					<h1 className="text-left text-black font-sm text-lg">
+					<h1 className="text-center text-black font-sm text-lg ml-5">
 						{payload.username}
 					</h1>
 					<div

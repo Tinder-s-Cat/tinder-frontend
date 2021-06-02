@@ -58,7 +58,7 @@ export default function Dashboard() {
 	return (
 		<div className="h-screen w-screen bg-gray-200 flex flex-row">
 			{/* Sidebar */}
-			<section className="w-3/12 h-full bg-white">
+			<section className="h-full bg-white" style={{ width: '20%' }}>
 				{/* header sidebar */}
 				<div className="w-full h-1/6 ">
 					<div className="h-1/2 bg-yellow-400">
@@ -78,12 +78,12 @@ export default function Dashboard() {
 										/>
 									</div>
 								</div>
-								<div className="w-1/4">
+								<div className="w-3/5">
 									<h1 className="text-left text-white font-semibold text-lg">
 										{localStorage.username}
 									</h1>
 								</div>
-								<div className="w-3/12 ml-8">
+								<div className="w-3/12 ml-20">
 									<button
 										onClick={() => {
 											handleLogout()
@@ -115,7 +115,7 @@ export default function Dashboard() {
 				</div>
 			</section>
 			{/* Main Dashboard isinya nested router */}
-			<section className="w-9/12 h-full bg-yellow-500 flex flex-row items-center justify-center drop-shadow-2xl">
+			<section className="w-10/12 h-full bg-yellow-500 flex flex-row items-center justify-center drop-shadow-2xl">
 				<Switch>
 					<Route exact path={path}>
 						<SwapCard />
