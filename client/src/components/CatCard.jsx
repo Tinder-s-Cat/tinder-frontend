@@ -120,7 +120,7 @@ export default function CatCard({ payload }) {
 							<div className="ml-60 -mt-24 flex items-center">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
-									className="h-5 w-5 text-red-600"
+									className="h-5 w-5 text-red-600 transition duration-300 ease-in-out transform hover:scale-125"
 									viewBox="0 0 20 20"
 									fill="currentColor"
 								>

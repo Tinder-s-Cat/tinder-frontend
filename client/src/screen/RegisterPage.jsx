@@ -30,6 +30,8 @@ export default function RegisterPage() {
 				email: newUser.email,
 				password: newUser.password,
 				profilePicture: newUser.profilePicture,
+				lat: newUser.lat,
+				lng: newUser.lng,
 				location: newUser.location,
 			},
 		})
@@ -83,11 +85,17 @@ export default function RegisterPage() {
 				url: `https://api.opencagedata.com/geocode/v1/json?q=${coor.coords.latitude}+${coor.coords.longitude}&key=6bfeaaf22afb419d95cfda8e999af2a6`,
 			})
 				.then(({ data }) => {
+					console.log(data, 'INI DATA')
 					const newLocation = data.results[0].components.city
+					const lat = data.results[0].geometry.lat
+					const lng = data.results[0].geometry.lng
 					setNewUser({
 						...newUser,
 						location: newLocation,
+						lat: lat,
+						lng: lng,
 					})
+					// console.log(newUser.location, 'INI LOKASI');
 				})
 				.catch((err) => {
 					console.log(err)
@@ -108,7 +116,7 @@ export default function RegisterPage() {
 				className="bg-white w-full md:max-w-md lg:max-w-full md:mx-auto md:mx-0 md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12
             flex items-center justify-center"
 			>
-				<div className="w-full h-100">
+				<div className="w-full h-full overflow-y-auto">
 					<h1 className="text-xl md:text-2xl font-bold leading-tight mt-12">
 						Register to your account
 					</h1>
@@ -177,18 +185,44 @@ export default function RegisterPage() {
 								type="location"
 								disabled
 								name="location"
+								value={newUser.lat}
+								onChange={handleChange}
+								placeholder="Set Latitude"
+								className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500
+                    focus:bg-white focus:outline-none"
+							/>
+						</div>
+
+						<div className="mt-4">
+							<input
+								type="location"
+								disabled
+								name="location"
+								value={newUser.lng}
+								onChange={handleChange}
+								placeholder="Set Longitude"
+								className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500
+                    focus:bg-white focus:outline-none"
+							/>
+						</div>
+
+						<div className="mt-4 flex space-x-2">
+							<input
+								type="location"
+								disabled
+								name="location"
 								value={newUser.location}
 								onChange={handleChange}
 								placeholder="Enter Your Location"
-								className="w-5/6 px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500
+								className="w-4/6 px-4 py-2 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500
                     focus:bg-white focus:outline-none"
 							/>
 							<button
 								type="button"
 								onClick={getLocation}
-								className=" w-auto bg-purple-500 hover:bg-purple-700 rounded-lg shadow-xl bottom-1/2 font-medium text-white px-6 py-2 float-right mt-3"
+								className=" w-auto bg-purple-500 hover:bg-purple-700 rounded-lg shadow-xl bottom-1/2 font-medium text-white px-6 py-2 float-right my-3"
 							>
-								SET
+								SET LOCATION
 							</button>
 						</div>
 
