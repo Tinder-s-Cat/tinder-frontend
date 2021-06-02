@@ -35,7 +35,7 @@ export default function SwapCard() {
 				<div className="w-full h-full relative">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
-						class="h-12 w-12 rounded-full "
+						class="h-12 w-12 rounded-full text-yellow-100 "
 						fill="none"
 						viewBox="0 0 24 24"
 						stroke="currentColor"
@@ -48,10 +48,10 @@ export default function SwapCard() {
 						/>
 					</svg>
 					<div className="opacity-0 group-hover:opacity-100 absolute ml-2 right-0 left-full top-1/4">
-						<h1 className="text-semibold font-mono text-xl">Gender</h1>
+						<h1 className=" font-mono text-2xl text-yellow-100 font-extrabold">Gender</h1>
 					</div>
 					<select
-						className="opacity-0 absolute group-hover:opacity-100 px-4 py-2 bg-gray-400 bg-opacity-75 text-white rounded-lg"
+						className="opacity-0 absolute group-hover:opacity-100 px-4 py-2 bg-gray-400 bg-opacity-75 text-yellow-100 rounded-lg"
 						name="gender"
 						id="gender"
 						value={genderState}

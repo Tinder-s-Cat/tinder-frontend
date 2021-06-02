@@ -54,8 +54,25 @@ export default function Dashboard() {
 	}, [])
 
 	function handleLogout() {
-		localStorage.clear()
-		history.push('/')
+		Swal.fire({
+			title: 'Are you sure?',
+			text: "You won't be able to revert this!",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Yes, Logout'
+		  }).then((result) => {
+			if (result.isConfirmed) {
+				localStorage.clear()
+				history.push('/')
+			  Swal.fire(
+				'Logout!',
+				'See You Again!',
+				'success'
+			  )
+			}
+		  })
 	}
 	// const useProfile = useSelector(state => state.profile)
 	// console.log(useProfile, 'INI ADALAH PROFILE');
@@ -66,7 +83,7 @@ export default function Dashboard() {
 			<section className="h-full bg-white" style={{ width: '20%' }}>
 				{/* header sidebar */}
 				<div className="w-full h-1/6 ">
-					<div className="h-1/2 bg-yellow-400">
+					<div className="h-1/2 bg-yellow-500">
 						<div className="w-full h-full px-5">
 							<div className="h-full flex justify-start items-center">
 								<div className="w-1/3">
@@ -122,7 +139,7 @@ export default function Dashboard() {
 			</section>
 			{/* Main Dashboard isinya nested router */}
 			<section
-				className=" h-full bg-yellow-500 flex flex-row items-center justify-center drop-shadow-2xl relative"
+				className=" h-full bg-yellow-400 flex flex-row items-center justify-center drop-shadow-2xl relative"
 				style={{ width: '80%' }}
 			>
 				<Switch>
