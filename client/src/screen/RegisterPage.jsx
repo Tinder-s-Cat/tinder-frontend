@@ -215,14 +215,14 @@ export default function RegisterPage() {
 								name="location"
 								value={newUser.location}
 								onChange={handleChange}
-								placeholder="Set Location"
-								className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500
+								placeholder="Enter Your Location"
+								className="w-5/6 px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500
                     focus:bg-white focus:outline-none"
 							/>
 							<button
 								type="button"
 								onClick={getLocation}
-								className=" mt-2 flex-shrink-0 w-auto bg-purple-500 hover:bg-purple-700 rounded-lg shadow-xl bottom-1/2 font-medium text-white px-4 py-2"
+								className=" w-auto bg-purple-500 hover:bg-purple-700 rounded-lg shadow-xl bottom-1/2 font-medium text-white px-6 py-2 float-right mt-3"
 							>
 								SET LOCATION
 							</button>

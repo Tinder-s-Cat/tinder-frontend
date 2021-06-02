@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { patchCat, deleteCat } from '../store/actions/action'
 import EditForm from './EditForm'
-import Swal from 'sweetalert2'
+// import Swal from 'sweetalert2'
 
 export default function CatCard({ payload }) {
 	const [showModal, setShowModal] = useState(false)
@@ -24,27 +24,7 @@ export default function CatCard({ payload }) {
 	}
 
 	function handleDelete() {
-		Swal.fire({
-			title: 'Are you sure?',
-			text: 'You will not be able to return this card!',
-			icon: 'warning',
-			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
-			confirmButtonText: 'delete',
-		}).then((result) => {
-			if (result.isConfirmed) {
-				dispatch(deleteCat({ id: payload.id, userId }))
-				Swal.fire(
-					'Deleted!',
-					'Your card has been deleted successfully',
-					'success'
-				)
-			}
-		})
-		// if (userId === localStorage.id) {
-		// 	dispatch(deleteCat({ id: payload.id, userId }))
-		// }
+		dispatch(deleteCat({ id: payload.id, userId }))
 	}
 
 	return (
@@ -136,6 +116,11 @@ export default function CatCard({ payload }) {
 							</div>
 							<div className="px-1">
 								<h1 className="text-left">{payload.description}</h1>
+							</div>
+							<div className="ml-60 -mt-24">
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+							<path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+							</svg>
 							</div>
 						</div>
 					</div>
