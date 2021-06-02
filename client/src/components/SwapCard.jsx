@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getCats, postLike, skipCard } from '../store/actions/action'
-import Logo from '../assets/404.svg'
 import './Component.css'
+import Logo from '../assets/noData.png'
 import Cards from './Cards'
 
 export default function SwapCard() {
@@ -29,38 +29,41 @@ export default function SwapCard() {
 	}
 
 	return (
-		<div>
+		<>
 			<div className="tinderCards_cardContainer">
 				{cats.length === 0 ? (
-					<div>
-						<img src={Logo} alt="logo" />
+					<div className="flex flex-col justify-center items-center self-center text-center w-full pt-16">
+						<img src={Logo} alt="no data" />
+						<h1 className="text-gray-500 p-2 bg-gray-200 rounded-xl">
+							Oops, no more cats to see.
+						</h1>
 					</div>
 				) : (
 					<Cards cat={cats[0]} />
 				)}
 			</div>
-			<div className="space-x-2 media">
-				<button onClick={() => handleSkip()} className="button">
+			<div className="space-x-2 buttonSwipe">
+				<div onClick={() => handleSkip()} className="buttonSwipe_skip">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
-						class="h-2 w-2 svg text-gray-500 hover:text-gray-900"
+						class="transform hover:scale-110 h-16 w-16 svg text-gray-500 hover:text-gray-900"
 						title="Skip"
 						fill="none"
 						viewBox="0 0 24 24"
 						stroke="currentColor"
 					>
 						<path
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							strokeWidth="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
 							d="M6 18L18 6M6 6l12 12"
 						/>
 					</svg>
-				</button>
-				<button onClick={handleRefresh} className="button">
+				</div>
+				<div onClick={handleRefresh} className="buttonSwipe_ref">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
-						class="h-2 w-2 svg text-green-500 hover:text-green-700"
+						class="transform hover:scale-110 h-2 w-2 svg text-yellow-600 hover:text-yellow-700"
 						title="Refresh"
 						viewBox="0 0 20 20"
 						fill="currentColor"
@@ -71,11 +74,11 @@ export default function SwapCard() {
 							clip-rule="evenodd"
 						/>
 					</svg>
-				</button>
-				<button onClick={handleLike} className="button">
+				</div>
+				<div onClick={handleLike} className="buttonSwipe_like">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
-						class="h-2 w-2 svg text-yellow-600 hover:text-yellow-700 text-sm"
+						class="transform hover:scale-110 h-2 svg w-2 text-blue-600 hover:text-blue-700 text-sm"
 						title="Like"
 						viewBox="0 0 20 20"
 						fill="currentColor"
@@ -86,8 +89,8 @@ export default function SwapCard() {
 							clip-rule="evenodd"
 						/>
 					</svg>
-				</button>
+				</div>
 			</div>
-		</div>
+		</>
 	)
 }
