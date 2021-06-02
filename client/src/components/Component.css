@@ -25,104 +25,100 @@
 } */
 
 .ukuran {
-    bottom: 0;
+	bottom: 0;
 }
 .gambar {
-    margin-top: 600px;
+	margin-top: 600px;
 }
 .card {
-    position: relative;
-    width: 500px;
-    padding: 20px;
-    max-width: 85vw;
-    height: 70vh;
-    border-radius: 20px;
-    background-size: cover;
-    background-position: center;
-    box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.356);
+	position: relative;
+	width: 500px;
+	padding: 20px;
+	max-width: 85vw;
+	height: 70vh;
+	border-radius: 20px;
+	background-size: cover;
+	background-position: center;
+	box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.356);
 }
 .card h3 {
-    position: absolute;
-    bottom: 55px;
-    color: black;
+	position: absolute;
+	bottom: 55px;
+	color: black;
 }
 .tinderCards_cardContainer {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 10vh;
-    right: 65px;
+	display: flex;
+	justify-content: center;
 }
 .swipe {
-    position: absolute;
+	position: absolute;
 }
 
 .card-age {
-    position: absolute;
-    left: 120px;
-    color:  black;
-    font-size: 20px;
-    top: 70px;
+	position: absolute;
+	left: 120px;
+	color: black;
+	font-size: 20px;
+	top: 70px;
 }
 .card-gender {
-    position: absolute;
-    top: 70px;
-    left: 20px;
-    color:  black;
-    font-size: 20px;
+	position: absolute;
+	top: 70px;
+	left: 20px;
+	color: black;
+	font-size: 20px;
 }
 .card-name {
-    position: absolute;
-    color: black;
-    font-size: 50px;
+	position: absolute;
+	color: black;
+	font-size: 50px;
 }
 .card-desc {
-    position: absolute;
-    color: black;
-    bottom: 20px;
-    left: 20px;
-    font-size: 20px;
+	position: absolute;
+	color: black;
+	bottom: 20px;
+	left: 20px;
+	font-size: 20px;
 }
 .card-location {
-    position: absolute;
-    color: black;
-    bottom: 60px;
-    left: 20px;
-    font-size: 20px;
+	position: absolute;
+	color: black;
+	bottom: 60px;
+	left: 20px;
+	font-size: 20px;
 }
 .buttonSwipe {
-    display: flex;
-    position: absolute;
-    bottom: 50px;
-    font-size: 50px;
-    margin-left: -35px;
+	display: flex;
+	position: absolute;
+	bottom: 50px;
+	font-size: 50px;
 }
 
-.buttonSwipe .buttonSwipe_skip .svg{
-    padding: 20px;
-    width: 60px;
-    height: 60px;
-    margin-left: -50px;
-    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.356);
-    border-radius: 50%;
-    background-color: white;
+.buttonSwipe .buttonSwipe_skip .svg {
+	padding: 20px;
+	width: 60px;
+	height: 60px;
+	box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.356);
+	border-radius: 50%;
+	background-color: white;
 }
-.buttonSwipe .buttonSwipe_ref .svg{
-    padding: 20px;
-    width: 60px;
-    height: 60px;
-    margin-left: 50px;
-    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.356);
-    border-radius: 50%;
-    background-color: white;
+.buttonSwipe .buttonSwipe_ref .svg {
+	padding: 20px;
+	width: 60px;
+	height: 60px;
+	margin-left: 50px;
+	box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.356);
+	border-radius: 50%;
+	background-color: white;
 }
-.buttonSwipe .buttonSwipe_like .svg{
-    padding: 20px;
-    width: 60px;
-    height: 60px;
-    margin-left: 50px;
-    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.356);
-    border-radius: 50%;
-    background-color: white;
+.buttonSwipe .buttonSwipe_like .svg {
+	padding: 20px;
+	width: 60px;
+	height: 60px;
+	margin-left: 50px;
+	box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.356);
+	border-radius: 50%;
+	background-color: white;
 }
 
 /* .media .button .svg{

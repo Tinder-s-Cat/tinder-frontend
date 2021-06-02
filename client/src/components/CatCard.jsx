@@ -42,7 +42,7 @@ export default function CatCard({ payload }) {
 								event.preventDefault()
 								handlePatchStatus()
 							}}
-							className="absolute bg-green-500 hover:bg-green-600 px-2 py-1 top-5 left-4 text-sm text-white font-semibold cursor-pointer"
+							className="absolute rounded-lg bg-green-500 hover:bg-green-600 px-2 py-1 top-5 left-4 text-sm text-white font-semibold cursor-pointer"
 						>
 							active
 						</button>
@@ -52,7 +52,7 @@ export default function CatCard({ payload }) {
 								event.preventDefault()
 								handlePatchStatus()
 							}}
-							className="absolute bg-yellow-500 hover:bg-yellow-600 px-2 py-1 top-5 left-4 text-sm text-white font-semibold cursor-pointer"
+							className="absolute rounded-lg bg-yellow-500 hover:bg-yellow-600 px-2 py-1 top-5 left-4 text-sm text-white font-semibold cursor-pointer"
 						>
 							inactive
 						</button>

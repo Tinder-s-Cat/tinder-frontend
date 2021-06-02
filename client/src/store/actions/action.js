@@ -7,6 +7,7 @@ import {
 } from './actionType'
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import socket from '../../api/socket'
 const BASE_URL = 'http://localhost:3000'
 
 export function setUserById(payload) {
@@ -93,18 +94,21 @@ export function postLike({ UserId, CatId }) {
 			},
 		})
 			.then(({ data }) => {
-				console.log(data, 'INI DATA LIKE')
+				if (data.message === 'You got a new match!') {
+					socket.emit('refetch-match', '')
+				}
 			})
 			.catch((err) => {
 				console.log(err)
 			})
 	}
 }
-export function getCats() {
+export function getCats(payload) {
 	return function (dispatch, getState) {
+		let query = payload.length === 0 ? '' : `?gender=${payload}`
 		axios({
 			method: 'GET',
-			url: BASE_URL + `/cat`,
+			url: BASE_URL + `/cat${query}`,
 			headers: { access_token: localStorage.access_token },
 		})
 			.then(({ data }) => {
