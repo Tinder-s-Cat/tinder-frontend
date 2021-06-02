@@ -3,7 +3,12 @@ import './Component.css'
 
 export default function Cards(cat) {
 	return (
-		<div className="w-full h-5/6 group transition duration-500 ease-in-out transform hover:scale-110 hover:flex-grow shadow-xl">
+		<div className="w-full h-5/6 group transition duration-500 ease-in-out transform hover:scale-110 hover:flex-grow shadow-xl relative">
+			{cat.cat.distance !== null && (
+				<div className="z-20 right-2 top-2 absolute bg-gray-600 text-white bg-opacity-75 p-2 rounded-md">
+					<h1>{cat.cat.distance} kilometers away</h1>
+				</div>
+			)}
 			<div
 				className="card"
 				style={{ backgroundImage: `url(${cat.cat.profilePicture})` }}
@@ -12,7 +17,9 @@ export default function Cards(cat) {
 					<p className="card-name">
 						{cat.cat.name} ({cat.cat.race})
 					</p>
-					<span className="card-gender text-left font-medium capitalize text-lg">{cat.cat.gender},  {cat.cat.age} months</span>
+					<span className="card-gender text-left font-medium capitalize text-lg">
+						{cat.cat.gender}, {cat.cat.age} months
+					</span>
 					<h3 className="flex flex-row flex-wrap space-x-1 font-medium">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -31,7 +38,9 @@ export default function Cards(cat) {
 					<div className="flex flex-row flex-wrap space-x-1 font-medium">
 						<h1 className="py-28">Description: </h1>
 					</div>
-					<span className="card-desc text-yellow-600 bg-yellow-200 rounded-xl">{cat.cat.description} </span>
+					<span className="card-desc text-yellow-600 bg-yellow-200 rounded-xl">
+						{cat.cat.description}{' '}
+					</span>
 				</div>
 			</div>
 		</div>
