@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import Picker from 'emoji-picker-react';
 import socket from '../api/socket'
 import MsgReceiver from './MsgReceiver'
 import MsgSender from './MsgSender'
@@ -14,6 +15,7 @@ export default function ChatRoom() {
 	let chatMessage = useSelector((state) => state.chatMessage)
 	const [profilePicture, setProfilePicture] = useState('')
 	let messagesEnd = React.createRef()
+	const [chosenEmoji, setChosenEmoji] = useState(null);
 
 	useEffect(() => {
 		// dispatch(fetchFriendMatch())
@@ -59,6 +61,15 @@ export default function ChatRoom() {
 			setMsg('')
 		}
 	}
+
+	const onEmojiClick = (event, emojiObject) => {
+		setChosenEmoji(emojiObject);
+	};
+
+	const handleEmoji = (e) => {
+		e.preventDefault()
+	}
+
 	return (
 		<div className=" bg-white p:2 sm:p-6  justify-between flex flex-col w-5/6 h-5/6 rounded-3xl shadow-lg">
 			<div className="flex sm:items-center justify-between py-3 border-b-2 border-gray-200">
@@ -117,8 +128,10 @@ export default function ChatRoom() {
 				<div className="relative flex items-center">
 					<button
 						type="button"
+						onClick={() => handleEmoji()}
 						className="inline-flex items-center justify-center rounded-full h-10 w-10 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none"
 					>
+						
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							fill="none"

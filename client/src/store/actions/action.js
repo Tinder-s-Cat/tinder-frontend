@@ -54,7 +54,7 @@ export function fetchFriendMatch(payload) {
 			},
 		})
 			.then(({ data }) => {
-				console.log(`data`, data)
+				// console.log(`data`, data)
 				dispatch(setFriends(data))
 			})
 			.catch((err) => {
@@ -73,7 +73,7 @@ export function fetchUserById(payload) {
 			headers: { access_token: localStorage.access_token },
 		})
 			.then(({ data }) => {
-				console.log(`data`, data)
+				// console.log(`data`, data)
 				dispatch(setUserById(data))
 			})
 			.catch((err) => {
@@ -108,7 +108,7 @@ export function getCats() {
 			headers: { access_token: localStorage.access_token },
 		})
 			.then(({ data }) => {
-				console.log(data, 'INI DATA NYA')
+				// console.log(data, 'INI DATA NYA')
 				dispatch({ type: SHOWGETCAT, payload: data })
 			})
 			.catch((err) => {
@@ -156,7 +156,24 @@ export function deleteCat(payload) {
 			url: `${BASE_URL}/cat/${payload.id}`,
 			headers: { access_token: localStorage.access_token },
 		}).then(({ data }) => {
-			dispatch(fetchUserById({ userId: payload.userId }))
+			Swal.fire({
+				title: 'Are you sure?',
+				text: 'You will not be able to return this card!',
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'delete',
+			}).then((result) => {
+				if (result.isConfirmed) {
+					dispatch(fetchUserById({ userId: payload.userId }))
+					Swal.fire(
+						'Deleted!',
+						'Your card has been deleted successfully',
+						'success'
+					)
+				}
+			})
 		})
 	}
 }
