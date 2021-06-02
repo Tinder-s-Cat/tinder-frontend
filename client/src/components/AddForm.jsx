@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { addCat } from '../store/actions/action'
+import { addCat, fetchUserById } from '../store/actions/action'
 import Swal from 'sweetalert2'
+import axios from 'axios'
 
 export default function AddForm({ setShowModal }) {
 	let [cat, setCat] = useState({
 		name: '',
 		age: '',
 		race: '',
-		gender: false,
-		profilePicture: '',
+		gender: 'male',
 		status: false,
 		description: '',
 	})
+	const fileInput = React.createRef()
 	let { userId } = useParams()
 	const dispatch = useDispatch()
 	function handleAdd() {
@@ -23,13 +24,47 @@ export default function AddForm({ setShowModal }) {
 			race: cat.race,
 			status: cat.status,
 			gender: cat.gender,
-			profilePicture: cat.profilePicture,
 			description: cat.description,
 		}
-		console.log('MASUK 2', payload)
-		dispatch(addCat({ payload, userId }))
 
-		// setCat('')
+		const formData = new FormData()
+		formData.append('profilePicture', fileInput.current.files[0])
+		formData.append('name', payload.name)
+		formData.append('age', payload.age)
+		formData.append('description', payload.description)
+		formData.append('race', payload.race)
+		formData.append('status', payload.status)
+		formData.append('gender', payload.gender)
+		axios({
+			method: 'POST',
+			url: `http://localhost:3000/cat/lengkap`,
+			headers: {
+				access_token: localStorage.access_token,
+			},
+			data: formData,
+		})
+			.then((response) => {
+				console.log('INI DATA>>>>', response)
+				dispatch(fetchUserById({ userId }))
+				Swal.fire({
+					position: 'center',
+					icon: 'success',
+					title: 'Successfully Added Your Cats',
+					showConfirmButton: false,
+					timer: 1500,
+				})
+			})
+			.catch((err) => {
+				Swal.fire({
+					position: 'center',
+					icon: 'error',
+					title: 'Something Wrong happened',
+					showConfirmButton: false,
+					timer: 1000,
+				})
+				console.log(`err`, err)
+			})
+
 		setShowModal()
 	}
 	function addName(event) {
@@ -51,9 +86,10 @@ export default function AddForm({ setShowModal }) {
 	function addGender(event) {
 		setCat({ ...cat, gender: event.target.value })
 	}
-	function addProfilePicture(event) {
-		setCat({ ...cat, profilePicture: event.target.value })
-	}
+	// function addProfilePicture(event) {
+	// 	console.log(event.target.files[0], 'asacs')
+	// 	// setCat({ ...cat, profilePicture: event.target.files })
+	// }
 
 	return (
 		<>
@@ -117,7 +153,6 @@ export default function AddForm({ setShowModal }) {
 									<label className="block text-gray-600" htmlFor="">
 										Gender:
 									</label>
-
 									<select
 										name="gender"
 										id=""
@@ -140,10 +175,11 @@ export default function AddForm({ setShowModal }) {
 										ProfilePicture:
 									</label>
 									<input
-										type="text"
+										id="file"
+										type="file"
+										name="file"
 										className="bg-gray-50 border-2 border-gray-200 rounded-lg p-2 w-full"
-										value={cat.profilePicture}
-										onChange={addProfilePicture}
+										ref={fileInput}
 									/>
 								</div>
 								<div>

@@ -61,7 +61,7 @@ export default function CatCard({ payload }) {
 						<div className="absolute right-4 top-3 flex flex-row space-x-2">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
-								className="h-8 w-8 text-yellow-200 bg-black bg-opacity-70 hover:text-yellow-600"
+								className="h-8 w-8 text-yellow-200 bg-black bg-opacity-70 hover:text-yellow-600 cursor-pointer"
 								fill="none"
 								viewBox="0 0 24 24"
 								stroke="currentColor"
@@ -70,15 +70,15 @@ export default function CatCard({ payload }) {
 								}}
 							>
 								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									strokeWidth="2"
 									d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
 								/>
 							</svg>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
-								class="h-8 w-8 text-red-400 bg-black bg-opacity-70 8ove8:text-red-600"
+								className="h-8 w-8 text-red-400 hover:text-red-600 bg-black cursor-pointer bg-opacity-70 8ove8:text-red-600"
 								fill="none"
 								viewBox="0 0 24 24"
 								stroke="currentColor"
@@ -87,9 +87,9 @@ export default function CatCard({ payload }) {
 								}}
 							>
 								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									strokeWidth="2"
 									d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
 								/>
 							</svg>
@@ -104,7 +104,7 @@ export default function CatCard({ payload }) {
 							</div>
 							<div>
 								<h1 className="text-left font-medium capitalize text-lg">
-									{payload.gender}, {payload.age}yo
+									{payload.gender}, {payload.age} months
 								</h1>
 							</div>
 							<div className="flex flex-row flex-wrap space-x-1">
@@ -115,12 +115,22 @@ export default function CatCard({ payload }) {
 								</div>
 							</div>
 							<div className="px-1">
-								<h1 className="text-left">{payload.description}</h1>
+								<h1 className="text-left">"{payload.description}"</h1>
 							</div>
-							<div className="ml-60 -mt-24">
-							<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-							<path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
-							</svg>
+							<div className="ml-60 -mt-24 flex items-center">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									className="h-5 w-5 text-red-600 transition duration-300 ease-in-out transform hover:scale-125"
+									viewBox="0 0 20 20"
+									fill="currentColor"
+								>
+									<path
+										fill-rule="evenodd"
+										d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+										clip-rule="evenodd"
+									/>
+								</svg>
+								<h1 className="text-center">{payload.IsLikes.length}</h1>
 							</div>
 						</div>
 					</div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Picker from 'emoji-picker-react';
+import Picker from 'emoji-picker-react'
 import socket from '../api/socket'
 import MsgReceiver from './MsgReceiver'
 import MsgSender from './MsgSender'
@@ -15,7 +15,7 @@ export default function ChatRoom() {
 	let chatMessage = useSelector((state) => state.chatMessage)
 	const [profilePicture, setProfilePicture] = useState('')
 	let messagesEnd = React.createRef()
-	const [chosenEmoji, setChosenEmoji] = useState(null);
+	const [chosenEmoji, setChosenEmoji] = useState(null)
 
 	useEffect(() => {
 		// dispatch(fetchFriendMatch())
@@ -63,8 +63,8 @@ export default function ChatRoom() {
 	}
 
 	const onEmojiClick = (event, emojiObject) => {
-		setChosenEmoji(emojiObject);
-	};
+		setChosenEmoji(emojiObject)
+	}
 
 	const handleEmoji = (e) => {
 		e.preventDefault()
@@ -131,7 +131,6 @@ export default function ChatRoom() {
 						onClick={() => handleEmoji()}
 						className="inline-flex items-center justify-center rounded-full h-10 w-10 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none"
 					>
-						
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							fill="none"
@@ -155,7 +154,8 @@ export default function ChatRoom() {
 							setMsg(e.target.value)
 						}}
 						placeholder="Write Something"
-						className="w-5/6 focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-full py-3"
+						style={{ width: '95%' }}
+						className="focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-full py-3"
 					/>
 					<div className=" ml-2 items-center inset-y-0 hidden sm:flex">
 						<button

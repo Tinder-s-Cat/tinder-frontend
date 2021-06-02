@@ -103,15 +103,16 @@ export default function Dashboard() {
 					</div>
 				</div>
 				<div className="h-5/6 w-full overflow-y-auto">
-					{
-					friendMatch.length === 0 ?
-					<div className="flex flex-col justify-center items-center self-center text-center w-full pt-16">
-						<img src={Logo} alt="no data" />
-						<h1 className="text-yellow-600 p-2 bg-yellow-200 rounded-xl">Oops, you no more have friends or matches</h1>
-					</div>
-					:
+					{friendMatch.length === 0 ? (
+						<div className="flex flex-col justify-center items-center self-center text-center w-full pt-16">
+							<img src={Logo} alt="no data" />
+							<h1 className="text-yellow-600 p-2 bg-yellow-200 rounded-xl">
+								no friends here. go discover one!
+							</h1>
+						</div>
+					) : (
 						friendMatch.map((el) => <MatchesCard key={el.id} payload={el} />)
-					}
+					)}
 				</div>
 			</section>
 			{/* Main Dashboard isinya nested router */}
