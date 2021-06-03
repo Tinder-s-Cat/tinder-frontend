@@ -24,7 +24,7 @@ export default function RegisterPage() {
 		event.preventDefault()
 		axios({
 			method: 'POST',
-			url: 'http://localhost:3000/register',
+			url: 'http://3.129.14.220:3000/register',
 			data: {
 				username: newUser.username,
 				email: newUser.email,
