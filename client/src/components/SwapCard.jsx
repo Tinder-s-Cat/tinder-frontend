@@ -4,6 +4,7 @@ import { getCats, postLike, skipCard } from '../store/actions/action'
 import './Component.css'
 import Logo from '../assets/noData.png'
 import Cards from './Cards'
+import socket from '../api/socket'
 
 export default function SwapCard() {
 	const cats = useSelector((state) => state.randomCards)
@@ -13,6 +14,13 @@ export default function SwapCard() {
 	useEffect(() => {
 		dispatch(getCats(genderState))
 	}, [genderState])
+
+	useEffect(() => {
+		socket.connect()
+		return () => {
+			socket.disconnect()
+		}
+	}, [])
 
 	const handleRefresh = () => {
 		dispatch(getCats(genderState))
@@ -48,7 +56,9 @@ export default function SwapCard() {
 						/>
 					</svg>
 					<div className="opacity-0 group-hover:opacity-100 absolute ml-2 right-0 left-full top-1/4">
-						<h1 className=" font-mono text-2xl text-yellow-100 font-extrabold">Gender</h1>
+						<h1 className=" font-mono text-2xl text-yellow-100 font-extrabold">
+							Gender
+						</h1>
 					</div>
 					<select
 						className="opacity-0 absolute group-hover:opacity-100 px-4 py-2 bg-gray-400 bg-opacity-75 text-yellow-100 rounded-lg"
