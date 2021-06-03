@@ -37,14 +37,15 @@ export default function AddForm({ setShowModal }) {
 		formData.append('gender', payload.gender)
 		axios({
 			method: 'POST',
-			url: `http://localhost:3000/cat/lengkap`,
+			// url: `http://localhost:3000/cat/lengkap`,
+			url: `http://3.129.14.220:3000/cat/lengkap`,
 			headers: {
 				access_token: localStorage.access_token,
+				'Content-Type': 'multipart/form-data',
 			},
 			data: formData,
 		})
 			.then((response) => {
-				console.log('INI DATA>>>>', response)
 				dispatch(fetchUserById({ userId }))
 				Swal.fire({
 					position: 'center',
@@ -62,7 +63,6 @@ export default function AddForm({ setShowModal }) {
 					showConfirmButton: false,
 					timer: 1000,
 				})
-				console.log(`err`, err)
 			})
 
 		setShowModal()
@@ -188,7 +188,7 @@ export default function AddForm({ setShowModal }) {
 									</label>
 									<textarea
 										type="text"
-										maxLength="10"
+										maxLength="50"
 										className="bg-gray-50 border-2 border-gray-200 rounded-lg p-2 w-full"
 										value={cat.description}
 										onChange={addDescription}

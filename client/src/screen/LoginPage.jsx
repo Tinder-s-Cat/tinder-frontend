@@ -22,7 +22,7 @@ export default function LoginPage() {
 		event.preventDefault()
 		axios({
 			method: 'POST',
-			url: 'http://localhost:3000/login',
+			url: 'http://3.129.14.220:3000/login',
 			data: {
 				email: dataLogin.email,
 				password: dataLogin.password,

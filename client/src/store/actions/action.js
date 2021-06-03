@@ -8,8 +8,8 @@ import {
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import socket from '../../api/socket'
-const BASE_URL = 'http://localhost:3000'
-
+// const BASE_URL = 'http://localhost:3000'
+const BASE_URL = 'http://3.129.14.220:3000'
 export function setUserById(payload) {
 	return { type: SET_PROFILEBYID, payload: payload }
 }
@@ -94,7 +94,11 @@ export function postLike({ UserId, CatId }) {
 			},
 		})
 			.then(({ data }) => {
-				if (data.message === 'You got a new match!') {
+				console.log(data.message)
+				if (
+					data.message === 'You got a new match!' ||
+					data.message === "It seems like you really like this user's cat 😻"
+				) {
 					socket.emit('refetch-match', '')
 				}
 			})
