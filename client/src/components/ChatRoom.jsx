@@ -17,7 +17,12 @@ export default function ChatRoom() {
 
 	useEffect(() => {
 		// dispatch(fetchFriendMatch())
+		socket.connect()
 		socket.emit('join-room', chatroomId)
+
+		return () => {
+			socket.disconnect()
+		}
 	}, [chatroomId])
 
 	useEffect(() => {
@@ -37,6 +42,13 @@ export default function ChatRoom() {
 	useEffect(() => {
 		messagesEnd.scrollIntoView({ behavior: 'smooth' })
 	}, [chatMessage])
+
+	useEffect(() => {
+		socket.connect()
+		return () => {
+			socket.disconnect()
+		}
+	}, [])
 
 	function handleSendMessage(event) {
 		event.preventDefault()
